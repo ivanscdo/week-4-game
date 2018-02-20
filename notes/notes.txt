@@ -1,0 +1,95 @@
+pseudocode {
+    general rules {
+        given 4 character options, select 1 character, other 3 become enemies;
+        hp shown under character (within character img), if hp reduced to 0, you die (lose) {
+            HP can be reduced to 0 or below, can show negative HP;
+        };
+        must fight other 3 characters (enemies) and reduce their hp to 0;
+        attack by clicking attack button;
+        once you attack, you enemy attacks as well;
+        after each attack, your attack power increases - eg 1st click of attack button only hit 5, 2nd click hit 10, etc;
+        enemy attack remains constant;
+        attacks: {
+            1st character: 8 damage;
+            2nd: 5 damage;
+            3rd: ;
+            4th: 25 damage;
+        };
+        hitting restart button resets to start screen;
+        attack power increases by value of initial power, eg 1st character 1st attack 8, 2nd attack 16, etc;
+    };
+
+
+    html&css{
+        theme: avatar!;
+        background image (avatar map);
+        title, centered: Star Wars RPG!;
+        four characters (justify-content-left);
+        div: "Your Character";
+        div: "Enemies Available To Attack;
+        div: "Fight Section";
+        button: "Attack";
+        div: "Defender;
+        div: game info (visibility:hidden/display:none until click on Attack button) {
+            attack info:{
+                "You attacked Darth Maul for 8 damage."
+                "Darth Maul attacked you back for 25 damage"
+            };
+
+            game over:{
+                "You have been defeated... GAME OVER!!!"
+            };
+
+            defeat 1 enemy:{
+                "You have defeated Luke Skywalker, you can choose to fight another enemy."
+            };
+
+            click attack with no enemy in div:"defender": "No Enemy Here."
+            (after defeating enemy, but perhaps also in between selecting your character and before selecting Defender);
+
+            win: "You Won!!! GAME OVER!!!";
+        };
+
+        button: "Restart" (shown if game over or win);
+    };
+
+    js/jQuery{
+        after first click on a character (selecting your character), that character moves to div: "You Character", the other three move to div: "Enemies Available to Attack";
+
+        all characters start off with a white border, after character selection, enemies have a red border while in div:"Enemies...", your character remains white;
+
+        after second click (selecting enemy to fight), that character moves to div:"Defender" and gets a black border;
+
+        after clicking on attack button, display attack info and update both characters' HP;
+
+        game info to be displayed:{
+
+            if you lose, display game over message;
+
+            if you defeat an enemy, display win message;
+
+            if you defeat all enemies, ...;
+        };
+        
+        once enemy defeated, he/she is removed from the game;
+
+        after selecting second enemy, game info clears;
+
+        attack power carries over from enemy to enemy, does not reset after defeating one enemy and selecting another;
+    };
+};
+
+
+
+
+
+            
+
+        
+        
+        
+
+
+
+
+
