@@ -1,59 +1,53 @@
-pseudocode {
-    general rules {
+pseudocode
+    general rules
         given 4 character options, select 1 character, other 3 become enemies;
-        hp shown under character (within character img), if hp reduced to 0, you die (lose) {
+        hp shown under character (within character img), if hp reduced to 0, you die (lose) 
             HP can be reduced to 0 or below, can show negative HP;
-        };
         must fight other 3 characters (enemies) and reduce their hp to 0;
         attack by clicking attack button;
         once you attack, you enemy attacks as well;
         after each attack, your attack power increases - eg 1st click of attack button only hit 5, 2nd click hit 10, etc;
         enemy attack remains constant;
-        attacks: {
+        attacks:
             1st character: 8 damage;
             2nd: 5 damage;
             3rd: ;
             4th: 25 damage;
-        };
         hitting restart button resets to start screen;
         attack power increases by value of initial power, eg 1st character 1st attack 8, 2nd attack 16, etc;
-    };
 
 
-    html&css{
-        theme: avatar!;
+    html&css
+        theme:
+            avatar!;
+            change background based on when characters battled??
         background image (avatar map);
-        title, centered: Star Wars RPG!;
+        title, off center right: Star Wars RPG!;
         four characters (justify-content-left);
         div: "Your Character";
         div: "Enemies Available To Attack;
         div: "Fight Section";
         button: "Attack";
         div: "Defender;
-        div: game info (visibility:hidden/display:none until click on Attack button) {
-            attack info:{
+        div: game info (visibility:hidden/display:none until click on Attack button)
+            attack info:
                 "You attacked Darth Maul for 8 damage."
                 "Darth Maul attacked you back for 25 damage"
-            };
 
-            game over:{
+            game over:
                 "You have been defeated... GAME OVER!!!"
-            };
 
-            defeat 1 enemy:{
+            defeat 1 enemy:
                 "You have defeated Luke Skywalker, you can choose to fight another enemy."
-            };
 
             click attack with no enemy in div:"defender": "No Enemy Here."
             (after defeating enemy, but perhaps also in between selecting your character and before selecting Defender);
 
             win: "You Won!!! GAME OVER!!!";
-        };
 
         button: "Restart" (shown if game over or win);
-    };
 
-    js/jQuery{
+    js/jQuery
         after first click on a character (selecting your character), that character moves to div: "You Character", the other three move to div: "Enemies Available to Attack";
 
         all characters start off with a white border, after character selection, enemies have a red border while in div:"Enemies...", your character remains white;
@@ -62,34 +56,58 @@ pseudocode {
 
         after clicking on attack button, display attack info and update both characters' HP;
 
-        game info to be displayed:{
+        game info to be displayed:
 
             if you lose, display game over message;
 
             if you defeat an enemy, display win message;
 
             if you defeat all enemies, ...;
-        };
         
         once enemy defeated, he/she is removed from the game;
 
         after selecting second enemy, game info clears;
 
         attack power carries over from enemy to enemy, does not reset after defeating one enemy and selecting another;
-    };
-};
 
+ 
 
+problem finding; problem solving
 
+problem 1:
+move characters upon first click, chosen character moves to div.you-character, others move to div.enemies;
 
+    solution 1:
+    jQuery grab then .appendTo(), but how to I program the site to differentiate based on first and later clicks?
 
-            
+    solution 2: 
+    use the process in fridge magnets activity, create for loop that adds hero class and villain class on first click. 
 
-        
-        
-        
+problem 1.1:
+let's start by first moving ONE character.
 
+    solution 1:
+    solved, $ then appendTo.
 
+problem 1.1.1: 
+click one character, move to div.your-character, move the rest to div.enemies.
 
+    solution 1: test solved, using $ and appendTo. not impossible, but inefficient to manually code every combination, need for loop
 
+problem 1.2.0:
+need for loop for character selection, also need to need to differentiate based on initial first and second character click (hero and 1st villain selection), and second and third character clicks (2nd and 3rd villain selection)
 
+what do I want to happen?
+4 characters
+1st click - character becomes hero, rest are villains
+2nd click - choose first villain to fight
+3rd click - (after first villain defeat), choose 2nd villain to fight
+4th click - (after second villain defeat), choose 3rd and final villain to fight
+
+focus on solution for 1st click
+
+    solution 1:
+    using "$("body").on("click"...";
+    figured out a way to add a class/id hero to character in first click;
+    need to figure out a way add villain id to other 3 characters;
+    testing to see if I can get the length of classes, if 3 hero, else villain;

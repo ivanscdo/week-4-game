@@ -6,29 +6,84 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-        <link rel="stylesheet" href="" />
+        <link rel="stylesheet" href="assets/css/style.css" />
 
         <title>Avatar RPG</title>
     </head>
     <body>
         <header class="container">
-            <div class="row justify-content-right">
+            <div class="row justify-content-center">
                 <h1>Avatar RPG</h1>
             </div>
             
         </header>
 
         <main class="container">
-            <div class="pick-character"></div>
-            <div class="your-character">Your Character</div>
-            <div class="enemies">Enemies Available to Attack</div>
-            <div class="fight">Fight Section</div>
-            <button class="attack">Attack!</button>
-            <div class="defender">Defender</div>
-            <div class="game-info"></div>
-            <button class="restart">Restart!</button>
+
+            <div class="row pick-character">
+                <!-- http://placehold.it/200x200 -->
+                <div class="col character" id="aang">
+                    <img src="" alt="Avatar Aang" />
+                </div>
+                <div class="col character" id="zhao">
+                    <img src="" alt="Admiral Zhao" />
+                </div>
+                <div class="col character" id="azula">
+                    <img src="" alt="Princess Azula" />
+                </div>
+                <div class="col character" id="ozai">
+                    <img src="" alt="Firelord Ozai" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p>Your Character</p>
+                    <div class="row your-character"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p>Enemies Available to Attack</p>
+                    <div class="row enemies"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p>Fight Section</p>
+                    <div class="row fight"></div>
+                </div>
+            </div>
+
+            <div class="row attack">
+                <div class="col">
+                    <button class="attack-button">Attack!</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p>Defender</p>
+                    <div class="row defender"></div>
+                </div>
+            </div>
+
+            <div class="game-info">
+                <p></p>
+            </div>
+
+            <div class="row restart">
+                <div class="col">
+                    <button class="restart-button">Restart!</button>
+                </div>
+            </div>
+            
         </main>
 
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="assets/javascript/game.js"></script> 
     </body>
 </html>
