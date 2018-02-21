@@ -15,6 +15,13 @@ pseudocode
             4th: 25 damage;
         hitting restart button resets to start screen;
         attack power increases by value of initial power, eg 1st character 1st attack 8, 2nd attack 16, etc;
+        attributes:
+            health points: always decrease by attack power or counter attack power, no healing;
+
+            attack power: only for hero, increases after each click (attack) by base power, eg if base 6, attack will be 12 on next click;
+
+            counter attack power: only for villain, power remains constant;
+
 
 
     html&css
@@ -104,6 +111,7 @@ what do I want to happen?
 3rd click - (after first villain defeat), choose 2nd villain to fight
 4th click - (after second villain defeat), choose 3rd and final villain to fight
 
+problem 1.2.1:
 focus on solution for 1st click
 
     solution 1:
@@ -111,3 +119,19 @@ focus on solution for 1st click
     figured out a way to add a class/id hero to character in first click;
     need to figure out a way add villain id to other 3 characters;
     testing to see if I can get the length of classes, if 3 hero, else villain;
+
+    solution 2: "$("body").on("click"...", then addClass hero + removeClass character for hero, then move character class(villains) to div.enemies
+
+problem 1.2.2:
+2nd click
+
+    solution 1: use 2nd "$("body").on("click"..." for 1st villain 
+
+problem 1.2.3:
+3rd & 4th click
+
+    solution 1: solution should be nearly identical to p1.2.2, may need to reincorporate counters;
+
+problem 2.0:
+need to figure out the fight sequence, also need to incorporate attributes - health points, attack power, counter attack power (see pseudocode: general rules: attributes).
+

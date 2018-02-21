@@ -1,35 +1,40 @@
 $(document).ready(function() {
 
-var counters = {
-    characterClick: 0
-};
+$(".pick-character").on("click", ".character", function () {
 
+    $(this).addClass("hero");
+    $(this).removeClass("character");
+    $(this).appendTo(".your-character");
+    $(".character").appendTo(".enemies");
+    $(".character").addClass("enemy");
+    // $(".character").removeClass("character");
 
-$("body").on("click", ".character", function () {
-    // console.log("clicked character");
-    // console.log( $(this).attr("id")  );
-    // if ( $(this).attr("id") === "azula" ){
-    //     console.log("this is azula!");
-    // }
-    while (counters.characterClick === 0) {
-        $(this).addClass("hero");
-        counters.characterClick++;
-        $(this).appendTo(".your-character");
-        var numberOfClasses = [];
-        numberOfClasses.push($(this).attr("class"));
-
-    }
+    var numberOfClasses = $(this).prop("classList");
     console.log("this element's class:", $(this).attr("class") );
-    console.log("counter.characterClick:", counters.characterClick);
     console.log(numberOfClasses);
 
+});
 
+$(".enemies").on("click", ".character", function (){
+    $(this).addClass("villain");
+    $(this).appendTo(".defender");
+    $(".enemy").removeClass("character");
 
 });
+
+$(".defender").on("click", ".villain", function() {
+    $(this).remove();
+});
+
+// $(".enemies").on("click", ".enemy", function(){
+//     $(this).addClass("villain");
+//     $(this).appendTo(".defender");
+//     $(this).removeClass("enemy");
+// });
     
     
 
 
 
-
+// end of: $(document).ready(function() {
 });
