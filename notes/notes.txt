@@ -13,6 +13,8 @@ pseudocode
             2nd: 5 damage;
             3rd: ;
             4th: 25 damage;
+        hitting attack when div.defender empty, ie no enemy selected:
+            "No enemy here."
         hitting restart button resets to start screen;
         attack power increases by value of initial power, eg 1st character 1st attack 8, 2nd attack 16, etc;
         attributes:
@@ -135,3 +137,22 @@ problem 1.2.3:
 problem 2.0:
 need to figure out the fight sequence, also need to incorporate attributes - health points, attack power, counter attack power (see pseudocode: general rules: attributes).
 
+    solution 1:
+    attributes stored in object, after each attack click, subtract hp from other character, need object for each character
+
+    solution 2: 
+    created master object containing each character and attributes for each character
+
+problem 2.1.0:
+first, bind attack button to test attributes, demo aang attacking azula, then add increasing ap,
+
+problem2.1.1:
+currently using characterAttributes.aang.hp syntax, how would I modify that to work on any character? this instead of aang? for loop that creates math ..aang.hp - azula.ap?
+
+
+
+problems to be addressed:
+
+will need if loop to remove defeated characters, if hp =< 0, remove
+
+need to make restart button disappear at start, then reappear at game over - hero wins or hero defeated
