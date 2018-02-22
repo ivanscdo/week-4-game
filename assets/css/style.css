@@ -2,3 +2,24 @@ body {
     background-image: url("../images/avatar-map.png");
     color: white;
 }
+
+.img {
+    height: auto;
+    width: 50%;
+}
+
+.img-azula,
+.img-zhao {
+    height: 150px;
+    width: 200px;
+}
+
+.img-aang {
+    height: 150px;
+    width: 150px;
+}
+
+.img-ozai {
+    height: 300px;
+    width: 200px;
+}

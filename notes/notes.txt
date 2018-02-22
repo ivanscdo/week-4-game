@@ -83,7 +83,13 @@ pseudocode
 
 problem finding; problem solving
 
-problem 1:
+problems on deck!
+
+    will need if loop to remove defeated characters, if hp =< 0, remove
+
+    need to make restart button disappear at start, then reappear at game over - hero wins or hero defeated
+
+problem 1: - solved! (see problem 1.2.1) 
 move characters upon first click, chosen character moves to div.you-character, others move to div.enemies;
 
     solution 1:
@@ -92,18 +98,18 @@ move characters upon first click, chosen character moves to div.you-character, o
     solution 2: 
     use the process in fridge magnets activity, create for loop that adds hero class and villain class on first click. 
 
-problem 1.1:
+problem 1.1: - solved! (see problem 1.2.1) 
 let's start by first moving ONE character.
 
     solution 1:
     solved, $ then appendTo.
 
-problem 1.1.1: 
+problem 1.1.1: - solved! (see problem 1.2.1) 
 click one character, move to div.your-character, move the rest to div.enemies.
 
     solution 1: test solved, using $ and appendTo. not impossible, but inefficient to manually code every combination, need for loop
 
-problem 1.2.0:
+problem 1.2.0: - solved! (see problem 1.2.1) 
 need for loop for character selection, also need to need to differentiate based on initial first and second character click (hero and 1st villain selection), and second and third character clicks (2nd and 3rd villain selection)
 
 what do I want to happen?
@@ -113,7 +119,7 @@ what do I want to happen?
 3rd click - (after first villain defeat), choose 2nd villain to fight
 4th click - (after second villain defeat), choose 3rd and final villain to fight
 
-problem 1.2.1:
+problem 1.2.1: - solved! 
 focus on solution for 1st click
 
     solution 1:
@@ -127,32 +133,70 @@ focus on solution for 1st click
 problem 1.2.2:
 2nd click
 
-    solution 1: use 2nd "$("body").on("click"..." for 1st villain 
+    solution 1: use 2nd "$("body").on("click"..." for 1st villain (see problem 1.2.1) 
 
 problem 1.2.3:
 3rd & 4th click
 
-    solution 1: solution should be nearly identical to p1.2.2, may need to reincorporate counters;
+    solution 1: solution should be nearly identical to p1.2.2 (see problem 1.2.1), may need to reincorporate counters; 
 
 problem 2.0:
-need to figure out the fight sequence, also need to incorporate attributes - health points, attack power, counter attack power (see pseudocode: general rules: attributes).
+need to figure out the fight sequence
+
+problem 2.0.1: - solved!
+how to  incorporate attributes - health points, attack power, counter attack power (see pseudocode: general rules: attributes).
 
     solution 1:
     attributes stored in object, after each attack click, subtract hp from other character, need object for each character
 
     solution 2: 
-    created master object containing each character and attributes for each character
+    created master object containing each character and attributes for each character, ie nested objects
+
 
 problem 2.1.0:
 first, bind attack button to test attributes, demo aang attacking azula, then add increasing ap,
 
-problem2.1.1:
+    solution to demo: characterAttributes.azula.hp - characterAttributes.aang.ap
+
+    solution to increasing ap: (see problem 2.1.1)
+
+problem 2.1.1:
 currently using characterAttributes.aang.hp syntax, how would I modify that to work on any character? this instead of aang? for loop that creates math ..aang.hp - azula.ap?
 
+what do I want to happen?
+
+after character selection(hero in div.your-character and villain in div.defender), clicking attack should do the following:
+
+    check (counter?) how many times hero has attacked, then multiply that by his/her attack power (counter would need to start at 1 instead of 0 to reflect accurately on first attack, eg 1*8 instead of 0*8), this equals current hero ap;
+
+    take current hp from villain and subtract current ap from hero, this equals current villain hp;
+
+    take current hp from hero and subtract cap from villain, this equals current hero hp; 
+
+    solution 1: ???
+
+problem 2.1.2: - solved!
+all characters have a unique id, how to I find the id based on the class, ie find id of class hero and class villain? how do I figure out which character is the hero and which is the villain?
+
+    solution 1: add variable "id:<name of character>" to character in characterAttributes. this will match the #id of element!
+
+problem 2.1.3: 
+upon attach-button click: get hero, get id, see which characterAttributes.<char>.id it matches, grab that info and console.log
+
+    solution 1: 
+
+problem 2.1.4:
+test for loop and characterAttributes, see if I can get it to console log each attribute
+
+    solution 1: 
+
+problem 2.1.5: - solved! s2
+how do I check which characterAttributes.<char>.id equals $("hero").attr("id")??
+
+    solution 1: iterate through characterAttributes to see if there is a match, then store that value, then feed it to a function, which then adds that value to characterAttributes.x.id and return attributes
+        - fail, cannot get length of object, only string or array, which means I can't use "i < characterAttributes.length", which means I cannot iterate with for loop, also can't use characterAttributes[#]. 
+
+    solution 2: use series of if/else loops
 
 
-problems to be addressed:
-
-will need if loop to remove defeated characters, if hp =< 0, remove
-
-need to make restart button disappear at start, then reappear at game over - hero wins or hero defeated
+    instead of storing attributes as nested object, can I can simply add them to .hero using .attr()!?!?
