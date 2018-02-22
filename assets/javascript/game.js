@@ -103,6 +103,8 @@ $(".attack-button").on("click", function() {
 // end of: $(".attack-button").on("click", function() {
 });
 
+
+// test button 
 $(".test-button").on("click", function (){
 
     // // test to find id based on class, hero and villain
@@ -135,7 +137,8 @@ $(".test-button").on("click", function (){
     // // end of: $(".hero").attr("id", function() {
     // });
 
-    // //test for finding attributes of villain
+    
+    // // test for finding attributes of villain
     // $(".villain").attr("id", function() {
     //     if ( $(this).attr("id") === characterAttributes.aang.id ) {
     //         console.log("villain aang!");
