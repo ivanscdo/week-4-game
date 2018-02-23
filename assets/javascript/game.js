@@ -3,9 +3,9 @@ $(document).ready(function() {
 
 
 // ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT - 
-// health points - decrease after attack, cannot heal (increase)
-// attack power - base attack power, used for hero only, increases by base after each attack
-// counter attack power - used for villain only, remains constant, does not increase like attack power
+// health points(hp) - decrease after attack, cannot heal (increase)
+// attack power(ap) - base attack power, used for hero only, increases by base after each attack
+// counter attack power(cap) - used for villain only, remains constant, does not increase like attack power
 var characterAttributes = {
     // // TEST: for in loop in test button
     // hp: 120, 
@@ -39,11 +39,17 @@ var characterAttributes = {
 
 // ATTRIBUTES INDEX FUNC: TAKES INT, RETURNS ATTRIBUTE - ATTRIBUTES INDEX FUNC: TAKES INT, RETURNS ATTRIBUTE - 
 function attributesIndex (x) {
+    // counter used to cycle through attributes; only increases after func loops through inside of nested charactersAttributes object
     let characterAttributesIndex = 0;
+    // prop = characters; loops through four initial values(nested objects) in characterAttributes object
     for (const prop in characterAttributes) {
+        // "inception" for loop; goes inside the each character object; characterAttributes[prop] is key! refers to individual character
         for (const nestedProp in characterAttributes[prop]) {
+            // increase counter once inside character object
             characterAttributesIndex++;
+            // checks if the value passed equals the counter; inception for loop cycles through all 16 attributes; "if" checks if the integer passed is the same as the number( "index" ) of the attribute
             if (x === characterAttributesIndex) {
+                // if so, function returns that attribute
                 return characterAttributes[prop][nestedProp] ;
             }
 
@@ -75,13 +81,14 @@ function attributesIndex (x) {
 }
 
 // ATTACH HP TO ALL CHARACTERS -  ATTACH HP TO ALL CHARACTERS -  ATTACH HP TO ALL CHARACTERS -  ATTACH HP TO ALL CHARACTERS - 
-// select id aang, create data-hp attribute and set it equal to characterAttributes.aang.hp
+// select id (in this case aang), then create data-hp attribute and set it equal to characterAttributes.x.hp (in this case characterAttributes.x.hp)
 $("#aang").attr("data-hp", characterAttributes.aang.hp );
 // console.log("hp:",  $("#aang").attr("data-hp") );
 
-// select class aang-hp, insert into it the value from data-hp
+// select hp class(aang-hp), insert into it the value from data-hp
 $(".aang-hp").text( $("#aang").attr("data-hp") );
 
+// same as above, however now using function attributesIndex();
 $("#zhao").attr("data-hp", attributesIndex(6));
 $(".zhao-hp").text( $("#zhao").attr("data-hp") );
 
@@ -98,7 +105,8 @@ $(".ozai-hp").text( $("#ozai").attr("data-hp") );
 // select div.pick-character, when user clicks on .character within div.pick-character, execute function
 // function: this=the .character the user clicked on, add the hero class, remove the character class, move character to div.your-character, all other characters become enemies, moved to div.enemies and add the class of enemy
 $(".pick-character").on("click", ".character", function () {
-    //try using .one() to fire on first click, perhaps no need to add/remove classes
+
+    //try using .one() to fire on first click, perhaps no need to add/remove classes?
 
     $(this).addClass("hero");
     $(this).removeClass("character");
@@ -106,6 +114,7 @@ $(".pick-character").on("click", ".character", function () {
     $(".character").appendTo(".enemies");
     $(".character").addClass("enemy");
     // $(".character").removeClass("character");
+
 
     // if/else if loop to figure out which character was clicked to attach corresponding ap (ap not cap since this is hero)
     $(".hero").attr("id", function() {
@@ -117,6 +126,7 @@ $(".pick-character").on("click", ".character", function () {
             // console.log("hp:", characterAttributes.aang.hp );
             // console.log("ap:", characterAttributes.aang.ap);
             // console.log("cap:", characterAttributes.aang.cap);
+            console.log ( "hero", $(".hero").attr("id"), "ap", $(this).attr("data-ap") );
 
         } else if ( $(this).attr("id") === characterAttributes.zhao.id ) {
             // console.log("hero zhao!");
@@ -138,10 +148,10 @@ $(".pick-character").on("click", ".character", function () {
 
 
 
-
     // // TEST: select id aang, create data-ap attribute and set it equal to characterAttributes.aang.ap
     // $("#aang").attr("data-ap", characterAttributes.aang.ap);
     // console.log("ap after hero click:",  $("#aang").attr("data-ap") );
+
 
 
     // // TEST: $(this).prop("classList");
@@ -162,11 +172,16 @@ $(".enemies").on("click", ".character", function (){
     $(this).appendTo(".defender");
     $(".enemy").removeClass("character");
 
+    //attaches corresponding cap to selected .villain
     $(".villain").attr("id", function() {
+        //for loop instead of "if" now possible thanks to function attributesIndex();
+        // cycles through all 16 attributes in characterAttributes object
         for (let i = 0; i < 16; i++) {
+            // check if the id of the selected(clicked) .villain (this) matches the id value in characterAttributes object
             if ( $(this).attr("id") === attributesIndex(i) ) {
+                // if so, create data attribute "data-cap" and add to it the cap value from characterAttributes object; i = id, i+3 = cap
                 $(this).attr("data-cap", attributesIndex(i+3) );
-                console.log( $(".villain").attr("id"), "cap", attributesIndex(i+3) );
+                console.log( "villain", $(".villain").attr("id"), "cap", $(this).attr("data-cap") );
             }
         }
 
@@ -201,6 +216,8 @@ $(".defender").on("click", ".villain", function() {
 
 // ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON - 
 $(".attack-button").on("click", function() {
+
+
 
 // END OF: $(".attack-button").on("click", function() {
 });
@@ -412,6 +429,35 @@ $(".test-button").on("click", function (){
     // }
     // console.log( attributesIndex(16) );
     // ^ END OF: function attributesIndex (x) {
+
+    // // TEST attack sequence
+    // // simple attack sequence, hero aang vs villain zhao; manual, no loop
+    // // overall, need 4 sections: variables, math, update with .text(), and remove() or win/defeat
+    console.log(" street fighter II: fight! ");
+    var heroHP = $(".hero").attr("data-hp");
+    var heroAP = parseInt( $(".hero").attr("data-ap") );
+    // ^ will need to parseInt() data-ap
+    var heroBaseAP = attributesIndex(3);
+    // ^ will need base ap
+    var villainHP = $(".villain").attr("data-hp");
+    var villainCAP = $(".villain").attr("data-cap");
+    console.log( "hero ap:",  $(".hero").attr("data-ap"));
+
+    heroHP = heroHP - villainCAP;
+    villainHP = villainHP - heroAP;
+    heroAP = heroAP + heroBaseAP;
+
+    $(".hero").attr("data-hp", heroHP);
+    $(".villain").attr("data-hp", villainHP);
+    $(".hero").attr("data-ap", heroAP);
+
+    $(".aang-hp").text( $("#aang").attr("data-hp") );
+    $(".zhao-hp").text( $("#zhao").attr("data-hp") );
+    
+
+    console.log( "hero hp:", $(".hero").attr("data-hp") );
+    console.log( "villain hp:", $(".villain").attr("data-hp") );
+    console.log( "hero ap:", $(".hero").attr("data-ap") );
 
 
 

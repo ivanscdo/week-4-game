@@ -166,20 +166,10 @@ first, bind attack button to test attributes, demo aang attacking azula, then ad
 
     solution to increasing ap: (see problem 2.1.1)
 
-problem 2.1.1:
-currently using characterAttributes.aang.hp syntax, how would I modify that to work on any character? this instead of aang? for loop that creates math ..aang.hp - azula.ap?
+problem 2.1.1: (see p3.0)
+currently using "characterAttributes.aang.hp - characterAttributes.azula.ap" format, how would I modify that to work on any character? this instead of aang? for loop that creates math .aang.hp - .azula.ap?
 
-what do I want to happen?
 
-after character selection(hero in div.your-character and villain in div.defender), clicking attack should do the following:
-
-    check (counter?) how many times hero has attacked, then multiply that by his/her attack power (counter would need to start at 1 instead of 0 to reflect accurately on first attack, eg 1*8 instead of 0*8), this equals current hero ap;
-
-    take current hp from villain and subtract current ap from hero, this equals current villain hp;
-
-    take current hp from hero and subtract cap from villain, this equals current hero hp; 
-
-    solution 1: ???
 
 problem 2.1.2: - solved!
 all characters have a unique id, how to I find the id based on the class, ie find id of class hero and class villain? how do I figure out which character is the hero and which is the villain?
@@ -251,3 +241,22 @@ I can access all attributes(16), but now how do I access each individual attribu
 
     solution 1:
     created function that takes integer (1-16) and returns attribute;
+
+
+problem 3.0:
+attack, counter attack sequence
+
+what do I want to happen?
+
+after character selection(hero in div.your-character and villain in div.defender);
+after hp on characters;
+after ap on hero and cap on villain;
+clicking attack should do the following:
+
+    check (counter?) how many times hero has attacked, then multiply that by his/her attack power (counter would need to start at 1 instead of 0 to reflect accurately on first attack, eg 1*8 instead of 0*8), this equals current hero ap;
+
+    take current hp from villain and subtract current ap from hero, this equals current villain hp;
+
+    take current hp from hero and subtract cap from villain, this equals current hero hp; 
+
+    solution 1: ???
