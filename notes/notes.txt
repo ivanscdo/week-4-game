@@ -89,6 +89,8 @@ problems on deck!
 
     need to make restart button disappear at start, then reappear at game over - hero wins or hero defeated
 
+    I wonder if there is a way to use the methods(?) from the fridge activity to dynamically create the data-hp for each character. the problem is I can't iterate over object, would need to use individual arrays and keep the attributes in specific order, eg var aang = {120, 8, 8} (hp, ap, cap)
+
 problem 1: - solved! (see problem 1.2.1) 
 move characters upon first click, chosen character moves to div.you-character, others move to div.enemies;
 
@@ -107,7 +109,8 @@ let's start by first moving ONE character.
 problem 1.1.1: - solved! (see problem 1.2.1) 
 click one character, move to div.your-character, move the rest to div.enemies.
 
-    solution 1: test solved, using $ and appendTo. not impossible, but inefficient to manually code every combination, need for loop
+    solution 1:
+    test solved, using $ and appendTo. not impossible, but inefficient to manually code every combination, need for loop
 
 problem 1.2.0: - solved! (see problem 1.2.1) 
 need for loop for character selection, also need to need to differentiate based on initial first and second character click (hero and 1st villain selection), and second and third character clicks (2nd and 3rd villain selection)
@@ -128,17 +131,20 @@ focus on solution for 1st click
     need to figure out a way add villain id to other 3 characters;
     testing to see if I can get the length of classes, if 3 hero, else villain;
 
-    solution 2: "$("body").on("click"...", then addClass hero + removeClass character for hero, then move character class(villains) to div.enemies
+    solution 2:
+    "$("body").on("click"...", then addClass hero + removeClass character for hero, then move character class(villains) to div.enemies
 
 problem 1.2.2:
 2nd click
 
-    solution 1: use 2nd "$("body").on("click"..." for 1st villain (see problem 1.2.1) 
+    solution 1:
+    use 2nd "$("body").on("click"..." for 1st villain (see problem 1.2.1) 
 
 problem 1.2.3:
 3rd & 4th click
 
-    solution 1: solution should be nearly identical to p1.2.2 (see problem 1.2.1), may need to reincorporate counters; 
+    solution 1:
+    solution should be nearly identical to p1.2.2 (see problem 1.2.1), may need to reincorporate counters; 
 
 problem 2.0:
 need to figure out the fight sequence
@@ -178,25 +184,59 @@ after character selection(hero in div.your-character and villain in div.defender
 problem 2.1.2: - solved!
 all characters have a unique id, how to I find the id based on the class, ie find id of class hero and class villain? how do I figure out which character is the hero and which is the villain?
 
-    solution 1: add variable "id:<name of character>" to character in characterAttributes. this will match the #id of element!
+    solution 1:
+    add variable "id:<name of character>" to character in characterAttributes. this will match the #id of element!
 
 problem 2.1.3: 
-upon attach-button click: get hero, get id, see which characterAttributes.<char>.id it matches, grab that info and console.log
+upon attack-button click: get hero, get id, see which characterAttributes.<char>.id it matches, grab that info and console.log
 
     solution 1: 
 
-problem 2.1.4:
+problem 2.1.4: - no solution! (see p2.1.5-s.1)
 test for loop and characterAttributes, see if I can get it to console log each attribute
 
-    solution 1: 
+    solution 1:
+    cannot use for loop in combination with characterAttributes.x.x
 
 problem 2.1.5: - solved! s2
 how do I check which characterAttributes.<char>.id equals $("hero").attr("id")??
 
-    solution 1: iterate through characterAttributes to see if there is a match, then store that value, then feed it to a function, which then adds that value to characterAttributes.x.id and return attributes
-        - fail, cannot get length of object, only string or array, which means I can't use "i < characterAttributes.length", which means I cannot iterate with for loop, also can't use characterAttributes[#]. 
+    solution 1:
+    iterate through characterAttributes to see if there is a match, then store that value, then feed it to a function, which then adds that value to characterAttributes.x.id and return attributes
+        - fail, cannot get length of object, only string or array, which means I can't use "i < characterAttributes.length", which means I cannot iterate with for loop, also can't use characterAttributes[i/#].
 
-    solution 2: use series of if/else loops
+         - SUCCESS, WAS ABLE TO ITERATE/USE FOR LOOP TO ACCESS VALUES OF TEST OBJECT! (see p2.1.9)
+
+    solution 2:
+    use series of if/else loops
 
 
-    instead of storing attributes as nested object, can I can simply add them to .hero using .attr()!?!?
+problem 2.1.6: - solved!
+instead of storing attributes as nested object, can I can simply add them to .hero using .attr()!?!?
+
+    solution 1:
+    I can use the .att(x, y) method, but I believe I still need the values stored. solution would involve both nested object and .attr().
+
+problem 2.1.7: - solved!
+need to display hp below each character from the beginning
+
+    solution 1:
+    .attr() + characterAttributes.x.hp + .text() combo, placed at the beginning, before first character click.
+
+problem 2.1.8:
+along side character selection, I need to attach the corresponding attributes, eg hero needs ap, villain needs cap
+
+    solution 1:
+    use .attr() + characterAttributes.x.ap/cap + .text() combo;
+    must be included within corresponding hero or villain click;
+
+problem 2.1.9: - solved!
+iterate through nested object characterAttributes;
+
+    solution 1:
+    used for (cont x in y) loop;
+
+I can access all attributes(16), but now how do I access each individual attribute, ie if I just want ozai's cap, how do I access that?
+
+    solution 1:
+    created function that takes integer (1-16) and returns attribute;
