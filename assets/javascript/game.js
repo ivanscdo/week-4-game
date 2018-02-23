@@ -74,27 +74,27 @@ function attributesIndex (x) {
 //END OF: function attributesIndex (x) {
 }
 
-
+// ATTACH HP TO ALL CHARACTERS -  ATTACH HP TO ALL CHARACTERS -  ATTACH HP TO ALL CHARACTERS -  ATTACH HP TO ALL CHARACTERS - 
 // select id aang, create data-hp attribute and set it equal to characterAttributes.aang.hp
-$("#aang").attr("data-hp", attributesIndex(2) );
+$("#aang").attr("data-hp", characterAttributes.aang.hp );
 // console.log("hp:",  $("#aang").attr("data-hp") );
 
 // select class aang-hp, insert into it the value from data-hp
 $(".aang-hp").text( $("#aang").attr("data-hp") );
 
-$("#zhao").attr("data-hp", characterAttributes.zhao.hp);
+$("#zhao").attr("data-hp", attributesIndex(6));
 $(".zhao-hp").text( $("#zhao").attr("data-hp") );
 
-$("#azula").attr("data-hp", characterAttributes.azula.hp);
+$("#azula").attr("data-hp", attributesIndex(10));
 $(".azula-hp").text( $("#azula").attr("data-hp") );
 
-$("#ozai").attr("data-hp", characterAttributes.ozai.hp);
+$("#ozai").attr("data-hp", attributesIndex(14));
 $(".ozai-hp").text( $("#ozai").attr("data-hp") );
 
 // // TEST ap before and after hero click
 // console.log("ap before hero click:",  $("#aang").attr("data-ap") );
 
-// SELECTING HERO -  SELECTING HERO -  SELECTING HERO -  SELECTING HERO -  SELECTING HERO -  SELECTING HERO - 
+// SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO - 
 // select div.pick-character, when user clicks on .character within div.pick-character, execute function
 // function: this=the .character the user clicked on, add the hero class, remove the character class, move character to div.your-character, all other characters become enemies, moved to div.enemies and add the class of enemy
 $(".pick-character").on("click", ".character", function () {
@@ -107,7 +107,7 @@ $(".pick-character").on("click", ".character", function () {
     $(".character").addClass("enemy");
     // $(".character").removeClass("character");
 
-    // if/else if loop to figure out which character was clicked to attach corresponding ap (since this is hero)
+    // if/else if loop to figure out which character was clicked to attach corresponding ap (ap not cap since this is hero)
     $(".hero").attr("id", function() {
         if ( $(this).attr("id") === characterAttributes.aang.id ) {
             // console.log("hero aang!");
@@ -154,13 +154,24 @@ $(".pick-character").on("click", ".character", function () {
 
 
 
-// SELECTING VILLAIN -  SELECTING VILLAIN -  SELECTING VILLAIN - SELECTING VILLAIN - SELECTING VILLAIN - SELECTING VILLAIN - 
+// SELECT VILLAIN - SELECT VILLAIN - SELECT VILLAIN - SELECT VILLAIN - SELECT VILLAIN - SELECT VILLAIN - SELECT VILLAIN - 
 // select div.enemies, when user clicks on .character (ie enemies since hero had character class removed) within div.enemies, execute function
 // function: this=the .character the user clicked on, add villain class, remove character class, and move to div.defender.
 $(".enemies").on("click", ".character", function (){
     $(this).addClass("villain");
     $(this).appendTo(".defender");
     $(".enemy").removeClass("character");
+
+    $(".villain").attr("id", function() {
+        for (let i = 0; i < 16; i++) {
+            if ( $(this).attr("id") === attributesIndex(i) ) {
+                $(this).attr("data-cap", attributesIndex(i+3) );
+                console.log( $(".villain").attr("id"), "cap", attributesIndex(i+3) );
+            }
+        }
+
+    // END OF: $(".villain").attr("id", function() {
+    });
 
 // END OF: $(".enemies").on("click", ".character", function (){
 });

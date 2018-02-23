@@ -187,18 +187,22 @@ all characters have a unique id, how to I find the id based on the class, ie fin
     solution 1:
     add variable "id:<name of character>" to character in characterAttributes. this will match the #id of element!
 
-problem 2.1.3: 
+problem 2.1.3: - solved!
 upon attack-button click: get hero, get id, see which characterAttributes.<char>.id it matches, grab that info and console.log
 
-    solution 1: 
+    solution 1:
+    for loop, if, attributesIndex func
 
-problem 2.1.4: - no solution! (see p2.1.5-s.1)
+problem 2.1.4: - solved!
 test for loop and characterAttributes, see if I can get it to console log each attribute
 
     solution 1:
     cannot use for loop in combination with characterAttributes.x.x
 
-problem 2.1.5: - solved! s2
+    solution 2:
+    used for loop + attributesIndex func
+
+problem 2.1.5: - solved!
 how do I check which characterAttributes.<char>.id equals $("hero").attr("id")??
 
     solution 1:
@@ -209,6 +213,10 @@ how do I check which characterAttributes.<char>.id equals $("hero").attr("id")??
 
     solution 2:
     use series of if/else loops
+
+    solution 3:
+    used for loop + attributesIndex func
+
 
 
 problem 2.1.6: - solved!
@@ -223,12 +231,15 @@ need to display hp below each character from the beginning
     solution 1:
     .attr() + characterAttributes.x.hp + .text() combo, placed at the beginning, before first character click.
 
-problem 2.1.8:
+problem 2.1.8: - solved!
 along side character selection, I need to attach the corresponding attributes, eg hero needs ap, villain needs cap
 
     solution 1:
     use .attr() + characterAttributes.x.ap/cap + .text() combo;
     must be included within corresponding hero or villain click;
+
+    solution 2:
+    used for loop + attributesIndex func
 
 problem 2.1.9: - solved!
 iterate through nested object characterAttributes;
