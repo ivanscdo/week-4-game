@@ -45,31 +45,32 @@ function attributesIndex (x) {
     for (const prop in characterAttributes) {
         // "inception" for loop; goes inside the each character object; characterAttributes[prop] is key! refers to individual character
         for (const nestedProp in characterAttributes[prop]) {
-            // increase counter once inside character object
-            characterAttributesIndex++;
+          
             // checks if the value passed equals the counter; inception for loop cycles through all 16 attributes; "if" checks if the integer passed is the same as the number( "index" ) of the attribute
             if (x === characterAttributesIndex) {
                 // if so, function returns that attribute
                 return characterAttributes[prop][nestedProp] ;
             }
+              // increase counter once inside character object, but after if (this will ensure 0-15 index instead of 1-16);
+              characterAttributesIndex++;
 
             // x - returned attribute
-            // 1 - id: "aang", 
-            // 2 - hp: 120,
-            // 3 - ap: 8,
-            // 4 - cap: 8
-            // 5 - id: "zhao", 
-            // 6 - hp: 100,
-            // 7 - ap: 5,
-            // 8 - cap: 5,
-            // 9 - id: "azula", 
-            // 10 - hp: 150, 
-            // 11 - ap: 20, 
-            // 12 - cap: 20, 
-            // 13 - id: "ozai", 
-            // 14 - hp: 180, 
-            // 15 - ap: 25, 
-            // 16 - cap: 25, 
+            // 0 - id: "aang", 
+            // 1 - hp: 120,
+            // 2 - ap: 8,
+            // 3 - cap: 8
+            // 4 - id: "zhao", 
+            // 5 - hp: 100,
+            // 6 - ap: 5,
+            // 7 - cap: 5,
+            // 8 - id: "azula", 
+            // 9 - hp: 150, 
+            // 10 - ap: 20, 
+            // 11 - cap: 20, 
+            // 12 - id: "ozai", 
+            // 13 - hp: 180, 
+            // 14 - ap: 25, 
+            // 15 - cap: 25, 
 
         // END OF: for (const nestedProp in characterAttributes[prop]) {
         }
@@ -89,13 +90,13 @@ $("#aang").attr("data-hp", characterAttributes.aang.hp );
 $(".aang-hp").text( $("#aang").attr("data-hp") );
 
 // same as above, however now using function attributesIndex();
-$("#zhao").attr("data-hp", attributesIndex(6));
+$("#zhao").attr("data-hp", attributesIndex(5));
 $(".zhao-hp").text( $("#zhao").attr("data-hp") );
 
-$("#azula").attr("data-hp", attributesIndex(10));
+$("#azula").attr("data-hp", attributesIndex(9));
 $(".azula-hp").text( $("#azula").attr("data-hp") );
 
-$("#ozai").attr("data-hp", attributesIndex(14));
+$("#ozai").attr("data-hp", attributesIndex(13));
 $(".ozai-hp").text( $("#ozai").attr("data-hp") );
 
 // // TEST ap before and after hero click
@@ -175,7 +176,7 @@ $(".enemies").on("click", ".character", function (){
     //attaches corresponding cap to selected .villain
     $(".villain").attr("id", function() {
         //for loop instead of "if" now possible thanks to function attributesIndex();
-        // cycles through all 16 attributes in characterAttributes object
+        // cycles through all 16 attributes (0-15) in characterAttributes object
         for (let i = 0; i < 16; i++) {
             // check if the id of the selected(clicked) .villain (this) matches the id value in characterAttributes object
             if ( $(this).attr("id") === attributesIndex(i) ) {
@@ -380,7 +381,7 @@ $(".test-button").on("click", function (){
 
     // // // TEST 3 - absolute success!!!
     // // // take results from test 2 and use characterAttributes object
-    // // // function takes int and returns specific character attribute, 1-16, see below
+    // // // function takes int and returns specific character attribute, 0-15, see below
     // function attributesIndex (x) {
     //     let characterAttributesIndex = 0;
     //     for (const prop in characterAttributes) {
@@ -399,22 +400,22 @@ $(".test-button").on("click", function (){
 
     //             // console.log(characterAttributesIndex, characterAttributes[prop][nestedProp]);
     //             // ^logs number for each attribute in each character, total of 16; tags number to attributes, ghetto index!
-    //             // 1 - id: "aang", 
-    //             // 2 - hp: 120,
-    //             // 3 - ap: 8,
-    //             // 4 - cap: 8
-    //             // 5 - id: "zhao", 
-    //             // 6 - hp: 100,
-    //             // 7 - ap: 5,
-    //             // 8 - cap: 5,
-    //             // 9 - id: "azula", 
-    //             // 10 - hp: 150, 
-    //             // 11 - ap: 20, 
-    //             // 12 - cap: 20, 
-    //             // 13 - id: "ozai", 
-    //             // 14 - hp: 180, 
-    //             // 15 - ap: 25, 
-    //             // 16 - cap: 25, 
+    //             // 0 - id: "aang", 
+    //             // 1 - hp: 120,
+    //             // 2 - ap: 8,
+    //             // 3 - cap: 8
+    //             // 4 - id: "zhao", 
+    //             // 5 - hp: 100,
+    //             // 6 - ap: 5,
+    //             // 7 - cap: 5,
+    //             // 8 - id: "azula", 
+    //             // 9 - hp: 150, 
+    //             // 10 - ap: 20, 
+    //             // 11 - cap: 20, 
+    //             // 12 - id: "ozai", 
+    //             // 13 - hp: 180, 
+    //             // 14 - ap: 25, 
+    //             // 15 - cap: 25, 
 
     //         // END OF: for (const nestedProp in characterAttributes[prop]) {
     //         }
@@ -427,37 +428,163 @@ $(".test-button").on("click", function (){
 
     // //END OF: function attributesIndex (x) {
     // }
-    // console.log( attributesIndex(16) );
+    // console.log( attributesIndex(15) );
     // ^ END OF: function attributesIndex (x) {
 
-    // // TEST attack sequence
-    // // simple attack sequence, hero aang vs villain zhao; manual, no loop
-    // // overall, need 4 sections: variables, math, update with .text(), and remove() or win/defeat
-    console.log(" street fighter II: fight! ");
+    // TEST: attack sequence
+    // simple attack sequence, manual code, no loop; hero aang vs villain zhao;
+    // overall, need 4 sections: variables, math, update hp with .text(), and remove() on win/defeat
+    console.log("---street fighter II: fight!---");
+    
+    console.log("-before attack-")
+    // capture hp, ap and cap in variables
     var heroHP = $(".hero").attr("data-hp");
     var heroAP = parseInt( $(".hero").attr("data-ap") );
-    // ^ will need to parseInt() data-ap
-    var heroBaseAP = attributesIndex(3);
-    // ^ will need base ap
+    
+    // // TEST: base AP finder for .hero
+    // console.log("---for loop test---");
+    for (let i = 0; i < 16; i++) {
+        // console.log(attributesIndex(i));
+        if ( $(".hero").attr("id") === attributesIndex(i) ) {
+            heroBaseAP = attributesIndex(i+2);
+        }
+    }
+    // var heroBaseAP = attributesIndex(3);
+    // console.log("for loop/heroBaseAP test:", heroBaseAP);
+
+
+
+    console.log("heroHP:", heroHP);
+    console.log("heroAP:", heroAP);
+
     var villainHP = $(".villain").attr("data-hp");
     var villainCAP = $(".villain").attr("data-cap");
-    console.log( "hero ap:",  $(".hero").attr("data-ap"));
+    // console.log( "hero ap before attack:",  $(".hero").attr("data-ap"));
+    console.log("villainHP:", villainHP);
+    console.log("villainCAP:", villainCAP);
 
+    // attack math
     heroHP = heroHP - villainCAP;
-    villainHP = villainHP - heroAP;
-    heroAP = heroAP + heroBaseAP;
+    villainHP = villainHP - heroAP;;
+    heroAP += heroBaseAP;
 
+    // add new values to hero and villain
     $(".hero").attr("data-hp", heroHP);
     $(".villain").attr("data-hp", villainHP);
     $(".hero").attr("data-ap", heroAP);
 
-    $(".aang-hp").text( $("#aang").attr("data-hp") );
-    $(".zhao-hp").text( $("#zhao").attr("data-hp") );
+    // // need loop!
+    // $(".aang-hp").text( $("#aang").attr("data-hp") );
+    // $(".zhao-hp").text( $("#zhao").attr("data-hp") );
+
+    // ^ TEST: for loop w/ atrributesIndex(), 
+    // automatically match data-hp to id,
+    // insert ( .text() ) to character class hp, eg .aang-hp;
+
+    // TEST 1
+    // fail
+    // for ( let i = 0; i < 16; i++ ) {
+    //     if ( $(".hero").attr("id") === attributesIndex(i) ) {
+    //         var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
+    //         var poundHero = "#" + $(".hero").attr("id");
+    //         console.log("dotHeroHP:", dotHeroHP);
+    //         console.log("poundHero:", poundHero);
+    //         var dotTextHero = "$(" + "\"" + dotHeroHP + "\"" + ").text(" + "$(" + "\"" + poundHero + "\"" + ").attr(" + "\"" + "data" + "-" + "hp" + "\"" + "))" ;
+    //         console.log("dotTextHero:", dotTextHero); 
+
+    //     }
+    //     if ( $(".villain").attr("id") === attributesIndex(i) ) {
+    //         dotVillainHP = "." + $(".villain").attr("id") + "-hp";
+    //         poundVillain = "#" + $(".villain").attr("id");
+    //         console.log("dotVillainHP:", dotVillainHP);
+    //         console.log("poundVillain:", poundVillain);
+
+    //     }
+    //     dotTextHero;
+
+    // }
+
+    // TEST 2
+    // fail
+    //  // function textHero () {
+    //     for ( let i = 0; i < 16; i++ ) {
+    //         if ( $(".hero").attr("id") === attributesIndex(i) ) {
+    //             var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
+    //             var poundHero = "#" + $(".hero").attr("id");
+    //             console.log("dotHeroHP:", dotHeroHP);
+    //             console.log("poundHero:", poundHero);
+    //             // var dotTextHero = "(" + "\"" + dotHeroHP + "\"" + ").text(" + "$(" + "\"" + poundHero + "\"" + ").attr(" + "\"" + "data" + "-" + "hp" + "\"" + "));" ;
+    //             // console.log("dotTextHero:", dotTextHero); 
+    //         }
+    //     if ( $(".villain").attr("id") === attributesIndex(i) ) {
+    //         dotVillainHP = "." + $(".villain").attr("id") + "-hp";
+    //         poundVillain = "#" + $(".villain").attr("id");
+    //         console.log("dotVillainHP:", dotVillainHP);
+    //         console.log("poundVillain:", poundVillain);
+
+    //     }
+    //     }
+    //     $(dotHeroHP).text( $(poundHero).attr("data-hp") );
+    //     $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
+    // // return dotTextHero;
+    // // }
+
+    // TEST 3
+    // success! but don't need function, for, or if
+    //  function textHero () {
+    //     for ( let i = 0; i < 16; i++ ) {
+    //         if ( $(".hero").attr("id") === attributesIndex(i) ) {
+    //            var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
+    //          var poundHero = "#" + $(".hero").attr("id");
+    //            console.log("dotHeroHP:", dotHeroHP);
+    //            console.log("poundHero:", poundHero);
+    //         }
+    //     }
+    // return $(dotHeroHP).text( $(poundHero).attr("data-hp") );
+    // }
+    // textHero();
     
 
+    // function textVillain () {
+    //     for ( let i = 0; i < 16; i++ ) {
+    //         if ( $(".villain").attr("id") === attributesIndex(i) ) {
+    //            dotVillainHP = "." + $(".villain").attr("id") + "-hp";
+    //            poundVillain = "#" + $(".villain").attr("id");
+    //            console.log("dotVillainHP:", dotVillainHP);
+    //            console.log("poundVillain:", poundVillain);
+    //         }
+    //     }
+    // return $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
+    // }
+    // textVillain();
+
+
+
+    // TEST 4
+    // identical to test 3 without func/for/if
+        var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
+        var poundHero = "#" + $(".hero").attr("id");
+        console.log("dotHeroHP:", dotHeroHP);
+        console.log("poundHero:", poundHero);
+        $(dotHeroHP).text( $(poundHero).attr("data-hp") );
+
+        dotVillainHP = "." + $(".villain").attr("id") + "-hp";
+        poundVillain = "#" + $(".villain").attr("id");
+        console.log("dotVillainHP:", dotVillainHP);
+        console.log("poundVillain:", poundVillain);
+        $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
+            
+            
+    
+
+
+    
+    console.log("-after attack");
     console.log( "hero hp:", $(".hero").attr("data-hp") );
-    console.log( "villain hp:", $(".villain").attr("data-hp") );
     console.log( "hero ap:", $(".hero").attr("data-ap") );
+    console.log( "villain hp:", $(".villain").attr("data-hp") );
+    console.log( "villain cap:", $(".villain").attr("data-cap") );
+    
 
 
 

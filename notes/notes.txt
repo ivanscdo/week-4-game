@@ -248,9 +248,9 @@ attack, counter attack sequence
 
 what do I want to happen?
 
-after character selection(hero in div.your-character and villain in div.defender);
-after hp on characters;
-after ap on hero and cap on villain;
+after character selection(hero in div.your-character and villain in div.defender),
+after hp on characters,
+after ap on hero and cap on villain,
 clicking attack should do the following:
 
     check (counter?) how many times hero has attacked, then multiply that by his/her attack power (counter would need to start at 1 instead of 0 to reflect accurately on first attack, eg 1*8 instead of 0*8), this equals current hero ap;
