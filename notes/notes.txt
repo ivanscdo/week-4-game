@@ -259,4 +259,16 @@ clicking attack should do the following:
 
     take current hp from hero and subtract cap from villain, this equals current hero hp; 
 
-    solution 1: ???
+    solution 1:
+    variables to grab hero HP, hero AP (parseInt needed), and hero base AP, along with villain HP, and villain CAP;
+    math to determine values after attack;
+    .text() to display updated hero/villain HP;
+
+problem 4.0
+defeating villain;
+picking new villain;
+defeating all villains;
+getting defeated by villain;
+game-info;
+restart button;
+

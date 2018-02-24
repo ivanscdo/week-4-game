@@ -33,6 +33,7 @@ var characterAttributes = {
         ap: 25, 
         cap: 25, 
     } 
+
 // END OF: var characterAttributes = {
 }
 
@@ -46,12 +47,12 @@ function attributesIndex (x) {
         // "inception" for loop; goes inside the each character object; characterAttributes[prop] is key! refers to individual character
         for (const nestedProp in characterAttributes[prop]) {
           
-            // checks if the value passed equals the counter; inception for loop cycles through all 16 attributes; "if" checks if the integer passed is the same as the number( "index" ) of the attribute
+            // checks if the value (int) passed equals the counter; inception for loop cycles through all 16 attributes (0-15); "if" checks if the integer passed is the same as the number( "index" ) of the attribute...
             if (x === characterAttributesIndex) {
                 // if so, function returns that attribute
                 return characterAttributes[prop][nestedProp] ;
             }
-              // increase counter once inside character object, but after if (this will ensure 0-15 index instead of 1-16);
+              // increase counter once inside character object, but after if (ensures 0-15 index instead of 1-16);
               characterAttributesIndex++;
 
             // x - returned attribute
@@ -82,7 +83,7 @@ function attributesIndex (x) {
 }
 
 // ATTACH HP TO ALL CHARACTERS -  ATTACH HP TO ALL CHARACTERS -  ATTACH HP TO ALL CHARACTERS -  ATTACH HP TO ALL CHARACTERS - 
-// select id (in this case aang), then create data-hp attribute and set it equal to characterAttributes.x.hp (in this case characterAttributes.x.hp)
+// select id (in this case aang), then create data-hp attribute and set it equal to characterAttributes.x.hp (in this case characterAttributes.aang.hp)
 $("#aang").attr("data-hp", characterAttributes.aang.hp );
 // console.log("hp:",  $("#aang").attr("data-hp") );
 
@@ -99,7 +100,7 @@ $(".azula-hp").text( $("#azula").attr("data-hp") );
 $("#ozai").attr("data-hp", attributesIndex(13));
 $(".ozai-hp").text( $("#ozai").attr("data-hp") );
 
-// // TEST ap before and after hero click
+// // TEST ap before and after hero click, see line 154
 // console.log("ap before hero click:",  $("#aang").attr("data-ap") );
 
 // SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO - 
@@ -107,7 +108,7 @@ $(".ozai-hp").text( $("#ozai").attr("data-hp") );
 // function: this=the .character the user clicked on, add the hero class, remove the character class, move character to div.your-character, all other characters become enemies, moved to div.enemies and add the class of enemy
 $(".pick-character").on("click", ".character", function () {
 
-    //try using .one() to fire on first click, perhaps no need to add/remove classes?
+    //try using .one() to fire on first click, perhaps no need to add/remove classes???
 
     $(this).addClass("hero");
     $(this).removeClass("character");
@@ -117,37 +118,48 @@ $(".pick-character").on("click", ".character", function () {
     // $(".character").removeClass("character");
 
 
-    // if/else if loop to figure out which character was clicked to attach corresponding ap (ap not cap since this is hero)
+    // attaches corresponding ap to .hero
     $(".hero").attr("id", function() {
-        if ( $(this).attr("id") === characterAttributes.aang.id ) {
-            // console.log("hero aang!");
-            // console.log("this:", this);
-            $(this).attr("data-ap", characterAttributes.aang.ap);
-            // console.log("data-ap test:", $(this).attr("data-ap") )
-            // console.log("hp:", characterAttributes.aang.hp );
-            // console.log("ap:", characterAttributes.aang.ap);
-            // console.log("cap:", characterAttributes.aang.cap);
-            console.log ( "hero", $(".hero").attr("id"), "ap", $(this).attr("data-ap") );
+        // if/else if loop to figure out which character was clicked to attach corresponding ap (ap not cap since this is hero)
+        // if ( $(this).attr("id") === characterAttributes.aang.id ) {
+        //     // console.log("hero aang!");
+        //     // console.log("this:", this);
+        //     $(this).attr("data-ap", characterAttributes.aang.ap);
+        //     // console.log("data-ap test:", $(this).attr("data-ap") )
+        //     // console.log("hp:", characterAttributes.aang.hp );
+        //     // console.log("ap:", characterAttributes.aang.ap);
+        //     // console.log("cap:", characterAttributes.aang.cap);
+        //     console.log ( "hero", $(".hero").attr("id"), "ap", $(this).attr("data-ap") );
 
-        } else if ( $(this).attr("id") === characterAttributes.zhao.id ) {
-            // console.log("hero zhao!");
-            $(this).attr("data-ap", characterAttributes.zhao.ap);
-            // console.log("data-ap test:", $(this).attr("data-ap") )
+        // } else if ( $(this).attr("id") === characterAttributes.zhao.id ) {
+        //     // console.log("hero zhao!");
+        //     $(this).attr("data-ap", characterAttributes.zhao.ap);
+        //     // console.log("data-ap test:", $(this).attr("data-ap") )
 
-        } else if ( $(this).attr("id") === characterAttributes.azula.id ) {
-            // console.log("hero azula!");
-            $(this).attr("data-ap", characterAttributes.azula.ap);
-            // console.log("data-ap test:", $(this).attr("data-ap") )
+        // } else if ( $(this).attr("id") === characterAttributes.azula.id ) {
+        //     // console.log("hero azula!");
+        //     $(this).attr("data-ap", characterAttributes.azula.ap);
+        //     // console.log("data-ap test:", $(this).attr("data-ap") )
 
-        } else if ( $(this).attr("id") === characterAttributes.ozai.id ) {
-            // console.log("hero ozai!");
-            $(this).attr("data-ap", characterAttributes.ozai.ap);
-            // console.log("data-ap test:", $(this).attr("data-ap") )
+        // } else if ( $(this).attr("id") === characterAttributes.ozai.id ) {
+        //     // console.log("hero ozai!");
+        //     $(this).attr("data-ap", characterAttributes.ozai.ap);
+        //     // console.log("data-ap test:", $(this).attr("data-ap") )
+        // }
+
+        //for loop using function attributesIndex()
+        for (let i = 0; i < 16; i++) {
+            // check if the id of the selected(clicked) .hero (this) matches the id value in characterAttributes object
+            if ( $(this).attr("id") === attributesIndex(i) ) {
+                // if so, create data attribute "data-cap" and add to it the cap value from characterAttributes object; i = id, i+2 = ap
+                $(this).attr("data-ap", attributesIndex(i+2) );
+                console.log( "hero", $(".hero").attr("id"), "ap", $(this).attr("data-ap") );
+            }
         }
+
+
     // END OF: $(".hero").attr("id", function() {
     });
-
-
 
     // // TEST: select id aang, create data-ap attribute and set it equal to characterAttributes.aang.ap
     // $("#aang").attr("data-ap", characterAttributes.aang.ap);
@@ -170,6 +182,7 @@ $(".pick-character").on("click", ".character", function () {
 // function: this=the .character the user clicked on, add villain class, remove character class, and move to div.defender.
 $(".enemies").on("click", ".character", function (){
     $(this).addClass("villain");
+    $(this).addClass("villain-1");
     $(this).appendTo(".defender");
     $(".enemy").removeClass("character");
 
@@ -194,12 +207,12 @@ $(".enemies").on("click", ".character", function (){
 
 
 
-// TEST: removing villain from div.defender
-$(".defender").on("click", ".villain", function() {
-    $(this).remove();
+// // TEST: removing villain from div.defender
+// $(".defender").on("click", ".villain", function() {
+//     $(this).remove();
 
-// END OF: $(".defender").on("click", ".villain", function() {
-});
+// // END OF: $(".defender").on("click", ".villain", function() {
+// });
 
 
 
@@ -213,15 +226,147 @@ $(".defender").on("click", ".villain", function() {
 // // END OF: $(".enemies").on("click", ".enemy", function(){
 // });
 
+// SELECT NEXT VILLAIN -  SELECT NEXT VILLAIN -  SELECT NEXT VILLAIN -  SELECT NEXT VILLAIN -  SELECT NEXT VILLAIN -  SELECT NEXT VILLAIN - 
+// select next villain after defeating previous villain
+$(".enemies").on("click", ".enemy", function(){
+    if ( $(".villain")[0] ) {
+        console.log("villain true");
+    } else {
+                
+        $(this).addClass("villain");
+        $(this).appendTo(".defender");
+        $(this).removeClass("enemy");
+
+        //attaches corresponding cap to selected .villain
+        $(".villain").attr("id", function() {
+            //for loop instead of "if" now possible thanks to function attributesIndex();
+            // cycles through all 16 attributes (0-15) in characterAttributes object
+            for (let i = 0; i < 16; i++) {
+                // check if the id of the selected(clicked) .villain (this) matches the id value in characterAttributes object
+                if ( $(this).attr("id") === attributesIndex(i) ) {
+                    // if so, create data attribute "data-cap" and add to it the cap value from characterAttributes object; i = id, i+3 = cap
+                    $(this).attr("data-cap", attributesIndex(i+3) );
+                    console.log( "villain", $(".villain").attr("id"), "cap", $(this).attr("data-cap") );
+                }
+            }
+        // END OF: $(".villain").attr("id", function() {
+        });
+
+    }
+
+// END OF: $(".enemies").on("click", ".enemy", function(){
+});
+
+
+
+// counter for attack button console.log 
+var attackCounter = 1;
 
 
 // ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON - 
 $(".attack-button").on("click", function() {
 
+    console.log("---street fighter II: fight!---");
+
+
+    console.log("attack #:", attackCounter);
+    
+    console.log("---before attack---")
+
+    // capture hp, ap and cap in variables
+    var heroHP = $(".hero").attr("data-hp");
+    var heroAP = parseInt( $(".hero").attr("data-ap") );
+    console.log("heroHP:", heroHP);
+    console.log("heroAP:", heroAP);
+
+    // static capture of base AP for hero
+    // var heroBaseAP = attributesIndex(3);
+    // console.log("for loop/heroBaseAP test:", heroBaseAP);
+    
+    // dynamic capture
+    // for loop finds base AP for hero
+    for (let i = 0; i < 16; i++) {
+        // console.log(attributesIndex(i));
+        if ( $(".hero").attr("id") === attributesIndex(i) ) {
+            heroBaseAP = attributesIndex(i+2);
+        }
+    }
+
+    var villainHP = $(".villain").attr("data-hp");
+    var villainCAP = $(".villain").attr("data-cap");
+    console.log("villainHP:", villainHP);
+    console.log("villainCAP:", villainCAP);
+
+    // attack math
+    heroHP = heroHP - villainCAP;
+    villainHP = villainHP - heroAP;;
+    heroAP += heroBaseAP;
+
+    // add new values to hero and villain
+    $(".hero").attr("data-hp", heroHP);
+    $(".villain").attr("data-hp", villainHP);
+    $(".hero").attr("data-ap", heroAP);
+
+    // // static push of hp (hero & villain) to page
+    // $(".aang-hp").text( $("#aang").attr("data-hp") );
+    // $(".zhao-hp").text( $("#zhao").attr("data-hp") );
+
+    // dynamic push of hp for hero
+    var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
+    var poundHero = "#" + $(".hero").attr("id");
+    // console.log("dotHeroHP:", dotHeroHP);
+    // console.log("poundHero:", poundHero);
+    $(dotHeroHP).text( $(poundHero).attr("data-hp") );
+
+    // dynamic push of hp for villain
+    dotVillainHP = "." + $(".villain").attr("id") + "-hp";
+    poundVillain = "#" + $(".villain").attr("id");
+    // console.log("dotVillainHP:", dotVillainHP);
+    // console.log("poundVillain:", poundVillain);
+    $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
+        
+    console.log("---after attack--");
+    console.log( "heroHP:", $(".hero").attr("data-hp") );
+    console.log( "heroAP:", $(".hero").attr("data-ap") );
+    console.log( "villainHP:", $(".villain").attr("data-hp") );
+    console.log( "villainCAP:", $(".villain").attr("data-cap") );
+    attackCounter++;
+
+    if ( $(".villain-1").attr("data-hp") < 0 ) {
+        console.log("villain 1 defeated");
+    
+    }
+
+
+    // // defeating villain
+    if ( $(".villain").attr("data-hp") <= 0 ) {
+        console.log("enemy defeated!");
+        // console.log(this);
+        // $(this).remove();
+        $(".villain").remove();
+
+    }
+
+
+
 
 
 // END OF: $(".attack-button").on("click", function() {
 });
+
+
+// // RESET BUTTON 
+
+$(".restart-button").click(function() {
+    location.reload();
+});
+
+
+
+
+
+
+
 
 
 
@@ -252,13 +397,10 @@ $(".test-button").on("click", function (){
     //         console.log("hp:", characterAttributes.aang.hp );
     //         console.log("ap:", characterAttributes.aang.ap);
     //         console.log("cap:", characterAttributes.aang.cap);
-
     //     } else if ( $(this).attr("id") === characterAttributes.zhao.id ) {
     //         console.log("hero zhao!");
-
     //     } else if ( $(this).attr("id") === characterAttributes.azula.id ) {
     //         console.log("hero azula!");
-
     //     } else if ( $(this).attr("id") === characterAttributes.ozai.id ) {
     //         console.log("hero ozai!");
     //     }
@@ -351,30 +493,24 @@ $(".test-button").on("click", function (){
     //                     // ^ logs "4" and "5"!!!
     //                     // forInTestReturn += obj[prop][nestedProp];
     //                     forInTestReturn.push(obj[prop][nestedProp]);
-                    
     //                 // END OF: for (const nestedProp in obj[prop]) {
     //                 }
     //                 // console.log( prop[nestProp] ); //logs "a"
-
-    //             // }
-            
+    //             // }     
     //         // END OF: if( typeof(obj[prop])  === "object"){
     //         } else if (typeof(obj[prop])  === "number" ) {
     //             // console.log(obj[prop], " is a number!");
     //             // console.log(obj[prop]); //logs "2" and "3"
     //             // forInTestReturn += obj[prop];
     //             forInTestReturn.push(obj[prop]);
-            
     //         // END OF: else if (typeof(obj[prop])  === "number" ) {
     //         }
     //         // console.log( typeof(obj[prop]) );
-
     //     // END OF: for (const prop in obj) {
     //     }
     //     return forInTestReturn;
     //     // ^ forInTestReturn as object "{}" returns: " [object Object]4523 " - fail
     //     // ^ forInTestReturn as array "[]" returns: " [4,5,2,3] " - success!
-
     // // END OF: function forInTest () {
     // }
     // console.log( forInTest() );
@@ -388,16 +524,13 @@ $(".test-button").on("click", function (){
     //         // console.log( typeof(characterAttributes[prop]) );
     //         // console.log(characterAttributes[prop]);
     //         for (const nestedProp in characterAttributes[prop]) {
-
     //             // console.log(nestedProp,":",characterAttributes[prop][nestedProp] );
     //             // ^logs 16 lines, goes inside the nested object
     //             // ^^ logs "id:value, hp:value, ap:value, cap:value" individually
-
     //             characterAttributesIndex++;
     //             if (x === characterAttributesIndex) {
     //                 return characterAttributes[prop][nestedProp] ;
     //             }
-
     //             // console.log(characterAttributesIndex, characterAttributes[prop][nestedProp]);
     //             // ^logs number for each attribute in each character, total of 16; tags number to attributes, ghetto index!
     //             // 0 - id: "aang", 
@@ -416,175 +549,169 @@ $(".test-button").on("click", function (){
     //             // 13 - hp: 180, 
     //             // 14 - ap: 25, 
     //             // 15 - cap: 25, 
-
     //         // END OF: for (const nestedProp in characterAttributes[prop]) {
     //         }
-
     //         // console.log( characterAttributes[prop] );
-    //         // ^ logs 4 lines, 4 objects with "id:value, hp:value, ap:value, cap:value" for each character (prop in characterAttributes)
-                
+    //         // ^ logs 4 lines, 4 objects with "id:value, hp:value, ap:value, cap:value" for each character (prop in characterAttributes)   
     //     // END OF: for (const prop in characterAttributes) {
     //     }
-
     // //END OF: function attributesIndex (x) {
     // }
     // console.log( attributesIndex(15) );
     // ^ END OF: function attributesIndex (x) {
 
-    // TEST: attack sequence
-    // simple attack sequence, manual code, no loop; hero aang vs villain zhao;
-    // overall, need 4 sections: variables, math, update hp with .text(), and remove() on win/defeat
-    console.log("---street fighter II: fight!---");
+    // // TEST: attack sequence
+    // // simple attack sequence, manual code, no loop; hero aang vs villain zhao;
+    // // overall, need 4 sections: variables, math, update hp with .text(), and remove() on win/defeat
+    // console.log("---street fighter II: fight!---");
     
-    console.log("-before attack-")
-    // capture hp, ap and cap in variables
-    var heroHP = $(".hero").attr("data-hp");
-    var heroAP = parseInt( $(".hero").attr("data-ap") );
+    // console.log("-before attack-")
+    // // capture hp, ap and cap in variables
+    // var heroHP = $(".hero").attr("data-hp");
+    // var heroAP = parseInt( $(".hero").attr("data-ap") );
     
-    // // TEST: base AP finder for .hero
-    // console.log("---for loop test---");
-    for (let i = 0; i < 16; i++) {
-        // console.log(attributesIndex(i));
-        if ( $(".hero").attr("id") === attributesIndex(i) ) {
-            heroBaseAP = attributesIndex(i+2);
-        }
-    }
-    // var heroBaseAP = attributesIndex(3);
-    // console.log("for loop/heroBaseAP test:", heroBaseAP);
-
-
-
-    console.log("heroHP:", heroHP);
-    console.log("heroAP:", heroAP);
-
-    var villainHP = $(".villain").attr("data-hp");
-    var villainCAP = $(".villain").attr("data-cap");
-    // console.log( "hero ap before attack:",  $(".hero").attr("data-ap"));
-    console.log("villainHP:", villainHP);
-    console.log("villainCAP:", villainCAP);
-
-    // attack math
-    heroHP = heroHP - villainCAP;
-    villainHP = villainHP - heroAP;;
-    heroAP += heroBaseAP;
-
-    // add new values to hero and villain
-    $(".hero").attr("data-hp", heroHP);
-    $(".villain").attr("data-hp", villainHP);
-    $(".hero").attr("data-ap", heroAP);
-
-    // // need loop!
-    // $(".aang-hp").text( $("#aang").attr("data-hp") );
-    // $(".zhao-hp").text( $("#zhao").attr("data-hp") );
-
-    // ^ TEST: for loop w/ atrributesIndex(), 
-    // automatically match data-hp to id,
-    // insert ( .text() ) to character class hp, eg .aang-hp;
-
-    // TEST 1
-    // fail
-    // for ( let i = 0; i < 16; i++ ) {
+    // // // TEST: base AP finder for .hero
+    // // console.log("---for loop test---");
+    // for (let i = 0; i < 16; i++) {
+    //     // console.log(attributesIndex(i));
     //     if ( $(".hero").attr("id") === attributesIndex(i) ) {
-    //         var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
-    //         var poundHero = "#" + $(".hero").attr("id");
-    //         console.log("dotHeroHP:", dotHeroHP);
-    //         console.log("poundHero:", poundHero);
-    //         var dotTextHero = "$(" + "\"" + dotHeroHP + "\"" + ").text(" + "$(" + "\"" + poundHero + "\"" + ").attr(" + "\"" + "data" + "-" + "hp" + "\"" + "))" ;
-    //         console.log("dotTextHero:", dotTextHero); 
-
+    //         heroBaseAP = attributesIndex(i+2);
     //     }
-    //     if ( $(".villain").attr("id") === attributesIndex(i) ) {
-    //         dotVillainHP = "." + $(".villain").attr("id") + "-hp";
-    //         poundVillain = "#" + $(".villain").attr("id");
-    //         console.log("dotVillainHP:", dotVillainHP);
-    //         console.log("poundVillain:", poundVillain);
-
-    //     }
-    //     dotTextHero;
-
     // }
+    // // var heroBaseAP = attributesIndex(3);
+    // // console.log("for loop/heroBaseAP test:", heroBaseAP);
 
-    // TEST 2
-    // fail
-    //  // function textHero () {
-    //     for ( let i = 0; i < 16; i++ ) {
-    //         if ( $(".hero").attr("id") === attributesIndex(i) ) {
-    //             var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
-    //             var poundHero = "#" + $(".hero").attr("id");
-    //             console.log("dotHeroHP:", dotHeroHP);
-    //             console.log("poundHero:", poundHero);
-    //             // var dotTextHero = "(" + "\"" + dotHeroHP + "\"" + ").text(" + "$(" + "\"" + poundHero + "\"" + ").attr(" + "\"" + "data" + "-" + "hp" + "\"" + "));" ;
-    //             // console.log("dotTextHero:", dotTextHero); 
-    //         }
-    //     if ( $(".villain").attr("id") === attributesIndex(i) ) {
-    //         dotVillainHP = "." + $(".villain").attr("id") + "-hp";
-    //         poundVillain = "#" + $(".villain").attr("id");
-    //         console.log("dotVillainHP:", dotVillainHP);
-    //         console.log("poundVillain:", poundVillain);
+    // console.log("heroHP:", heroHP);
+    // console.log("heroAP:", heroAP);
 
-    //     }
-    //     }
-    //     $(dotHeroHP).text( $(poundHero).attr("data-hp") );
-    //     $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
-    // // return dotTextHero;
+    // var villainHP = $(".villain").attr("data-hp");
+    // var villainCAP = $(".villain").attr("data-cap");
+    // // console.log( "hero ap before attack:",  $(".hero").attr("data-ap"));
+    // console.log("villainHP:", villainHP);
+    // console.log("villainCAP:", villainCAP);
+
+    // // attack math
+    // heroHP = heroHP - villainCAP;
+    // villainHP = villainHP - heroAP;;
+    // heroAP += heroBaseAP;
+
+    // // add new values to hero and villain
+    // $(".hero").attr("data-hp", heroHP);
+    // $(".villain").attr("data-hp", villainHP);
+    // $(".hero").attr("data-ap", heroAP);
+
+    // // // need loop!
+    // // $(".aang-hp").text( $("#aang").attr("data-hp") );
+    // // $(".zhao-hp").text( $("#zhao").attr("data-hp") );
+
+    // // ^ TEST: for loop w/ atrributesIndex(), 
+    // // automatically match data-hp to id,
+    // // insert ( .text() ) to character class hp, eg .aang-hp;
+
+    // // TEST 1
+    // // fail
+    // // for ( let i = 0; i < 16; i++ ) {
+    // //     if ( $(".hero").attr("id") === attributesIndex(i) ) {
+    // //         var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
+    // //         var poundHero = "#" + $(".hero").attr("id");
+    // //         console.log("dotHeroHP:", dotHeroHP);
+    // //         console.log("poundHero:", poundHero);
+    // //         var dotTextHero = "$(" + "\"" + dotHeroHP + "\"" + ").text(" + "$(" + "\"" + poundHero + "\"" + ").attr(" + "\"" + "data" + "-" + "hp" + "\"" + "))" ;
+    // //         console.log("dotTextHero:", dotTextHero); 
+    // //     }
+    // //     if ( $(".villain").attr("id") === attributesIndex(i) ) {
+    // //         dotVillainHP = "." + $(".villain").attr("id") + "-hp";
+    // //         poundVillain = "#" + $(".villain").attr("id");
+    // //         console.log("dotVillainHP:", dotVillainHP);
+    // //         console.log("poundVillain:", poundVillain);
+    // //     }
+    // //     dotTextHero;
     // // }
 
-    // TEST 3
-    // success! but don't need function, for, or if
-    //  function textHero () {
-    //     for ( let i = 0; i < 16; i++ ) {
-    //         if ( $(".hero").attr("id") === attributesIndex(i) ) {
-    //            var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
-    //          var poundHero = "#" + $(".hero").attr("id");
-    //            console.log("dotHeroHP:", dotHeroHP);
-    //            console.log("poundHero:", poundHero);
-    //         }
-    //     }
-    // return $(dotHeroHP).text( $(poundHero).attr("data-hp") );
-    // }
-    // textHero();
+    // // TEST 2
+    // // fail
+    // //  // function textHero () {
+    // //     for ( let i = 0; i < 16; i++ ) {
+    // //         if ( $(".hero").attr("id") === attributesIndex(i) ) {
+    // //             var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
+    // //             var poundHero = "#" + $(".hero").attr("id");
+    // //             console.log("dotHeroHP:", dotHeroHP);
+    // //             console.log("poundHero:", poundHero);
+    // //             // var dotTextHero = "(" + "\"" + dotHeroHP + "\"" + ").text(" + "$(" + "\"" + poundHero + "\"" + ").attr(" + "\"" + "data" + "-" + "hp" + "\"" + "));" ;
+    // //             // console.log("dotTextHero:", dotTextHero); 
+    // //         }
+    // //     if ( $(".villain").attr("id") === attributesIndex(i) ) {
+    // //         dotVillainHP = "." + $(".villain").attr("id") + "-hp";
+    // //         poundVillain = "#" + $(".villain").attr("id");
+    // //         console.log("dotVillainHP:", dotVillainHP);
+    // //         console.log("poundVillain:", poundVillain);
+    // //     }
+    // //     }
+    // //     $(dotHeroHP).text( $(poundHero).attr("data-hp") );
+    // //     $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
+    // // // return dotTextHero;
+    // // // }
+
+    // // TEST 3
+    // // success! but don't need function, for, or if
+    // //  function textHero () {
+    // //     for ( let i = 0; i < 16; i++ ) {
+    // //         if ( $(".hero").attr("id") === attributesIndex(i) ) {
+    // //            var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
+    // //          var poundHero = "#" + $(".hero").attr("id");
+    // //            console.log("dotHeroHP:", dotHeroHP);
+    // //            console.log("poundHero:", poundHero);
+    // //         }
+    // //     }
+    // // return $(dotHeroHP).text( $(poundHero).attr("data-hp") );
+    // // }
+    // // textHero();
     
+    // // function textVillain () {
+    // //     for ( let i = 0; i < 16; i++ ) {
+    // //         if ( $(".villain").attr("id") === attributesIndex(i) ) {
+    // //            dotVillainHP = "." + $(".villain").attr("id") + "-hp";
+    // //            poundVillain = "#" + $(".villain").attr("id");
+    // //            console.log("dotVillainHP:", dotVillainHP);
+    // //            console.log("poundVillain:", poundVillain);
+    // //         }
+    // //     }
+    // // return $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
+    // // }
+    // // textVillain();
 
-    // function textVillain () {
-    //     for ( let i = 0; i < 16; i++ ) {
-    //         if ( $(".villain").attr("id") === attributesIndex(i) ) {
-    //            dotVillainHP = "." + $(".villain").attr("id") + "-hp";
-    //            poundVillain = "#" + $(".villain").attr("id");
-    //            console.log("dotVillainHP:", dotVillainHP);
-    //            console.log("poundVillain:", poundVillain);
-    //         }
-    //     }
-    // return $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
-    // }
-    // textVillain();
+    // // TEST 4
+    // // identical to test 3 without func/for/if
+    //     var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
+    //     var poundHero = "#" + $(".hero").attr("id");
+    //     console.log("dotHeroHP:", dotHeroHP);
+    //     console.log("poundHero:", poundHero);
+    //     $(dotHeroHP).text( $(poundHero).attr("data-hp") );
 
-
-
-    // TEST 4
-    // identical to test 3 without func/for/if
-        var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
-        var poundHero = "#" + $(".hero").attr("id");
-        console.log("dotHeroHP:", dotHeroHP);
-        console.log("poundHero:", poundHero);
-        $(dotHeroHP).text( $(poundHero).attr("data-hp") );
-
-        dotVillainHP = "." + $(".villain").attr("id") + "-hp";
-        poundVillain = "#" + $(".villain").attr("id");
-        console.log("dotVillainHP:", dotVillainHP);
-        console.log("poundVillain:", poundVillain);
-        $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
+    //     dotVillainHP = "." + $(".villain").attr("id") + "-hp";
+    //     poundVillain = "#" + $(".villain").attr("id");
+    //     console.log("dotVillainHP:", dotVillainHP);
+    //     console.log("poundVillain:", poundVillain);
+    //     $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
             
             
     
 
 
     
-    console.log("-after attack");
-    console.log( "hero hp:", $(".hero").attr("data-hp") );
-    console.log( "hero ap:", $(".hero").attr("data-ap") );
-    console.log( "villain hp:", $(".villain").attr("data-hp") );
-    console.log( "villain cap:", $(".villain").attr("data-cap") );
+    // console.log("-after attack");
+    // console.log( "hero hp:", $(".hero").attr("data-hp") );
+    // console.log( "hero ap:", $(".hero").attr("data-ap") );
+    // console.log( "villain hp:", $(".villain").attr("data-hp") );
+    // console.log( "villain cap:", $(".villain").attr("data-cap") );
+
+    // TEST: determine if .villain exists
+    // if ( $(".villain")[0] ) {
+    //     console.log("villain true");
     
+    // } else {
+    //     console.log("villain false");
+    // }
 
 
 
