@@ -265,10 +265,28 @@ clicking attack should do the following:
     .text() to display updated hero/villain HP;
 
 problem 4.0
-defeating villain;
-picking new villain;
-defeating all villains;
-getting defeated by villain;
-game-info;
-restart button;
+
+restart button:
+    needs to be hidden and appear after hero defeating all villains, and after hero being defeated by villain;
+
+problem 4.1.0
+fix attack-counter attack sequence,
+defeated villain should not attack hero during defeat cycle;
+    
+    solution 1
+    change order of code and organize logically;
+    capture hp, ap, base ap, and cap in variables;
+    hero attacks first: villain hp minus ap, update ap, update villain hp, check if villain defeated;
+    villain attacks second: if villain not defeated, hero hp minus cap, update hero hp, check if hero defeated;
+    DEBUG!! line of code which updated hero ap was inside if loop that checked if villain hp was > 0, after villain defeat hero ap was not being updated because villain hp < 0, moved out of if loop immediately after heroAP is updated;
+
+problem 4.1.0
+game-info:
+    defeating villain;
+    picking new villain;
+    defeating all villains;
+    getting defeated by villain;
+
+    solution 1:
+
 

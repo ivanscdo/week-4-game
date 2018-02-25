@@ -153,7 +153,7 @@ $(".pick-character").on("click", ".character", function () {
             if ( $(this).attr("id") === attributesIndex(i) ) {
                 // if so, create data attribute "data-cap" and add to it the cap value from characterAttributes object; i = id, i+2 = ap
                 $(this).attr("data-ap", attributesIndex(i+2) );
-                console.log( "hero", $(".hero").attr("id"), "ap", $(this).attr("data-ap") );
+                console.log("hero:", $(".hero").attr("id"), "hp:", $(this).attr("data-hp"), "ap:", $(this).attr("data-ap") );
             }
         }
 
@@ -182,7 +182,7 @@ $(".pick-character").on("click", ".character", function () {
 // function: this=the .character the user clicked on, add villain class, remove character class, and move to div.defender.
 $(".enemies").on("click", ".character", function (){
     $(this).addClass("villain");
-    $(this).addClass("villain-1");
+    // $(this).addClass("villain-1");
     $(this).appendTo(".defender");
     $(".enemy").removeClass("character");
 
@@ -195,7 +195,7 @@ $(".enemies").on("click", ".character", function (){
             if ( $(this).attr("id") === attributesIndex(i) ) {
                 // if so, create data attribute "data-cap" and add to it the cap value from characterAttributes object; i = id, i+3 = cap
                 $(this).attr("data-cap", attributesIndex(i+3) );
-                console.log( "villain", $(".villain").attr("id"), "cap", $(this).attr("data-cap") );
+                console.log("villain:", $(".villain").attr("id"), "hp:", $(this).attr("data-hp"), "cap:", $(this).attr("data-cap"));
             }
         }
 
@@ -230,7 +230,7 @@ $(".enemies").on("click", ".character", function (){
 // select next villain after defeating previous villain
 $(".enemies").on("click", ".enemy", function(){
     if ( $(".villain")[0] ) {
-        console.log("villain true");
+        console.log("villain in .defender");
     } else {
                 
         $(this).addClass("villain");
@@ -246,7 +246,7 @@ $(".enemies").on("click", ".enemy", function(){
                 if ( $(this).attr("id") === attributesIndex(i) ) {
                     // if so, create data attribute "data-cap" and add to it the cap value from characterAttributes object; i = id, i+3 = cap
                     $(this).attr("data-cap", attributesIndex(i+3) );
-                    console.log( "villain", $(".villain").attr("id"), "cap", $(this).attr("data-cap") );
+                    console.log( "villain:", $(".villain").attr("id"), "hp:", $(".villain").attr("data-hp"), "cap", $(this).attr("data-cap") );
                 }
             }
         // END OF: $(".villain").attr("id", function() {
@@ -283,7 +283,7 @@ $(".attack-button").on("click", function() {
     // var heroBaseAP = attributesIndex(3);
     // console.log("for loop/heroBaseAP test:", heroBaseAP);
     
-    // dynamic capture
+    // dynamic capture of base AP for hero
     // for loop finds base AP for hero
     for (let i = 0; i < 16; i++) {
         // console.log(attributesIndex(i));
@@ -297,33 +297,69 @@ $(".attack-button").on("click", function() {
     console.log("villainHP:", villainHP);
     console.log("villainCAP:", villainCAP);
 
-    // attack math
-    heroHP = heroHP - villainCAP;
+    // // hero attack
+
     villainHP = villainHP - heroAP;;
     heroAP += heroBaseAP;
+    $(".hero").attr("data-ap", heroAP);
+
+    $(".villain").attr("data-hp", villainHP);
+
+    dotVillainHP = "." + $(".villain").attr("id") + "-hp";
+    poundVillain = "#" + $(".villain").attr("id");
+    $(dotVillainHP).text( $(poundVillain).attr("data-hp") );    
+
+    // // villain attack
+
+    // check if villain has been defeated, if so hero is not attacked, if not hero is attacked;
+    if ( $(".villain").attr("data-hp") > 0 ) {
+        heroHP = heroHP - villainCAP;
+        $(".hero").attr("data-hp", heroHP);
+        // $(".hero").attr("data-ap", heroAP);
+        // ^^^DEBUG!!!^^^ this placement was causing hero data-ap to not get updated after villain defeat since villain hp was < 0, moved up, immediately after/following var heroAP update
+
+        var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
+        var poundHero = "#" + $(".hero").attr("id");
+        $(dotHeroHP).text( $(poundHero).attr("data-hp") );
+
+    // END OF: if ( $(".villain-1").attr("data-hp") > 0 ) {
+    } else if ( $(".villain").attr("data-hp") <= 0 ) {
+        console.log("enemy defeated!");
+        // console.log(this);
+        // $(this).remove();
+        $(".villain").remove();
+
+    // END OF: if ( $(".villain").attr("data-hp") <= 0 ) {
+    }
+
+
+    // attack math
+    // heroHP = heroHP - villainCAP;
+    // villainHP = villainHP - heroAP;;
+    // heroAP += heroBaseAP;
 
     // add new values to hero and villain
-    $(".hero").attr("data-hp", heroHP);
-    $(".villain").attr("data-hp", villainHP);
-    $(".hero").attr("data-ap", heroAP);
+    // $(".hero").attr("data-hp", heroHP);
+    // $(".villain").attr("data-hp", villainHP);
+    // $(".hero").attr("data-ap", heroAP);
 
     // // static push of hp (hero & villain) to page
     // $(".aang-hp").text( $("#aang").attr("data-hp") );
     // $(".zhao-hp").text( $("#zhao").attr("data-hp") );
 
     // dynamic push of hp for hero
-    var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
-    var poundHero = "#" + $(".hero").attr("id");
-    // console.log("dotHeroHP:", dotHeroHP);
-    // console.log("poundHero:", poundHero);
-    $(dotHeroHP).text( $(poundHero).attr("data-hp") );
+    // var dotHeroHP = "." + $(".hero").attr("id") +"-hp";
+    // var poundHero = "#" + $(".hero").attr("id");
+    // // console.log("dotHeroHP:", dotHeroHP);
+    // // console.log("poundHero:", poundHero);
+    // $(dotHeroHP).text( $(poundHero).attr("data-hp") );
 
     // dynamic push of hp for villain
-    dotVillainHP = "." + $(".villain").attr("id") + "-hp";
-    poundVillain = "#" + $(".villain").attr("id");
+    // dotVillainHP = "." + $(".villain").attr("id") + "-hp";
+    // poundVillain = "#" + $(".villain").attr("id");
     // console.log("dotVillainHP:", dotVillainHP);
     // console.log("poundVillain:", poundVillain);
-    $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
+    // $(dotVillainHP).text( $(poundVillain).attr("data-hp") );
         
     console.log("---after attack--");
     console.log( "heroHP:", $(".hero").attr("data-hp") );
@@ -332,20 +368,16 @@ $(".attack-button").on("click", function() {
     console.log( "villainCAP:", $(".villain").attr("data-cap") );
     attackCounter++;
 
-    if ( $(".villain-1").attr("data-hp") < 0 ) {
-        console.log("villain 1 defeated");
-    
-    }
-
-
-    // // defeating villain
-    if ( $(".villain").attr("data-hp") <= 0 ) {
-        console.log("enemy defeated!");
-        // console.log(this);
-        // $(this).remove();
-        $(".villain").remove();
-
-    }
+    // if ( $(".villain-1").attr("data-hp") <= 0 ) {
+    //     console.log("villain 1 defeated");
+    // }
+    // // // defeating villain
+    // if ( $(".villain").attr("data-hp") <= 0 ) {
+    //     console.log("enemy defeated!");
+    //     // console.log(this);
+    //     // $(this).remove();
+    //     $(".villain").remove();
+    // }
 
 
 
