@@ -280,7 +280,7 @@ defeated villain should not attack hero during defeat cycle;
     villain attacks second: if villain not defeated, hero hp minus cap, update hero hp, check if hero defeated;
     DEBUG!! line of code which updated hero ap was inside if loop that checked if villain hp was > 0, after villain defeat hero ap was not being updated because villain hp < 0, moved out of if loop immediately after heroAP is updated;
 
-problem 4.1.0
+problem 4.2.0
 game-info:
     defeating villain;
     picking new villain;
@@ -288,5 +288,39 @@ game-info:
     getting defeated by villain;
 
     solution 1:
+
+    link game info to game events with if statements;
+    attack: 
+        .hero attacked .villain for x damage,
+        .villain attacked .hero for x damage;
+    -solved!
+
+    .click attack with no enemy:
+        No enemies to attack, select an enemy above!;
+    - solved!
+    - tricky! needed .attack-button .click inside if statement outside of main .attack-button .click;
+            also added .text(" ") to allcharacter selection clicks (hero, villain, next villain);
+
+    .hero wins:
+        you defeated all enemies!!!;
+    - solved! if statement inside .attack-button, inside villain hp if statement checks how many elements with .hero and .enemy;
+        if no .hero and no .enemy, nothing; if .hero and .enemies, nothing; if .hero and no .enemy, hero wings!
+
+    .hero wins:
+        related: clicking attack again after defeating all enemies still shows "no enemy present..." dialog
+    - solved: .off after all enemies defeated
+
+    .hero dies:
+        you have been defeated... GAME OVER!!!;
+
+
+problem 4.2.1 - solved!
+need to fix gameInfo when villain is defeated, undefined etc
+
+    solution 1:
+    include game info (hero/villain damage) in if/else statements that check villain hp
+    
+
+
 
 
