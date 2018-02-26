@@ -1,12 +1,14 @@
 $(document).ready(function() {
 
-// ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT
-// ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT -  ATTRIBUTES OBJECT
+// OBJECTS, VARIABLES, FUNCTIONS - OBJECTS, VARIABLES, FUNCTIONS - OBJECTS, VARIABLES, FUNCTIONS - OBJECTS, VARIABLES, FUNCTIONS
+// OBJECTS, VARIABLES, FUNCTIONS - OBJECTS, VARIABLES, FUNCTIONS - OBJECTS, VARIABLES, FUNCTIONS - OBJECTS, VARIABLES, FUNCTIONS
+
+// nested object stores character attributes
 // health points(hp) - decrease after attack, cannot heal (increase)
 // attack power(ap) - base attack power, used for hero only, increases by base after each attack
 // counter attack power(cap) - used for villain only, remains constant, does not increase like attack power
 var characterAttributes = {
-    // // TEST: for in loop in test button
+    // // TEST: for-in loop in .test-button
     // hp: 120, 
     aang:{
         id: "aang", 
@@ -40,16 +42,18 @@ var characterAttributes = {
 // END OF: var characterAttributes = {
 }
 
-// counter for attack button console.log 
-// also needed for .gameInfo
+// counter for .attack-button console.log 
+// also needed for .gameInfo!
 var counters = {
     attack: 1
     // TEST: gameInfo:  0
 };
 
+// for proper name function
 var youNeverEvenCalledMeByMyNameHero =  "";
 var youNeverEvenCalledMeByMyNameVillain =  "";
 
+// for changing images to gifs
 var imageSourceHero = "";
 var dotImageHero = "";
 
@@ -75,6 +79,8 @@ function resetButton () {
 // END OF: function resetButton () {
 }
 
+// PROPER NAME FUNCTION
+// function used to change hero name from id to proper name, ie aang to Avatar Aang
 function davidAllenCoeHero () {
     for (let i = 0; i < 20; i++) {
         if ( $(".hero").attr("id") === attributesIndex(i) ) {
@@ -87,6 +93,7 @@ function davidAllenCoeHero () {
 //END OF: function davidAllenCoeHero () {
 }
 
+// same as above but for villain
 function davidAllenCoeVillain () {
     for (let i = 0; i < 20; i++) {
         if ( $(".villain").attr("id") === attributesIndex(i) ) {
@@ -99,9 +106,9 @@ function davidAllenCoeVillain () {
 //END OF: function davidAllenCoeHero () {
 }
 
-// ATTRIBUTES INDEX FUNC - ATTRIBUTES INDEX FUNC - ATTRIBUTES INDEX FUNC - ATTRIBUTES INDEX FUNC - ATTRIBUTES INDEX FUNC 
-// ATTRIBUTES INDEX FUNC - ATTRIBUTES INDEX FUNC - ATTRIBUTES INDEX FUNC - ATTRIBUTES INDEX FUNC - ATTRIBUTES INDEX FUNC 
-// takes int (0-15), returns attribute
+// ATTRIBUTES INDEX
+// function iterates over nested object!
+// takes int (0-19), returns attribute from characterAttributes object;
 function attributesIndex (x) {
     // counter used to cycle through attributes; only increases after func loops through inside of nested charactersAttributes object
     let characterAttributesIndex = 0;
@@ -110,7 +117,7 @@ function attributesIndex (x) {
         // "inception" for loop; goes inside the each character object; characterAttributes[prop] is key! it refers to individual character, nested prop refers to characteristic;
         for (const nestedProp in characterAttributes[prop]) {
             
-            // checks if the value (int) passed equals the counter; inception for loop cycles through all 16 attributes (0-15); if statement checks if the integer passed is the same as the number( "index" ) of the attribute...
+            // checks if the value (int) passed equals the counter; inception for loop cycles through all 16 attributes (0-19); if statement checks if the integer passed is the same as the number( "index" ) of the attribute...
             if (x === characterAttributesIndex) {
                 // ...if so, function returns that attribute
                 return characterAttributes[prop][nestedProp] ;
@@ -170,8 +177,7 @@ $(".azula-hp").text( $("#azula").attr("data-hp") );
 $("#ozai").attr("data-hp", attributesIndex(16));
 $(".ozai-hp").text( $("#ozai").attr("data-hp") );
 
-// // TEST ap before and after hero click, see line 154
-// console.log("ap before hero click:",  $("#aang").attr("data-ap") );
+
 
 // SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO - SELECT HERO - SELECT HERO - SELECT HERO - 
 // SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO -  SELECT HERO - SELECT HERO - SELECT HERO - SELECT HERO - 
@@ -194,33 +200,7 @@ $(".pick-character").on("click", ".character", function () {
 
     // attaches corresponding ap to .hero
     $(".hero").attr("id", function() {
-        // if/else if loop to figure out which character was clicked to attach corresponding ap (ap not cap since this is hero)
-        // if ( $(this).attr("id") === characterAttributes.aang.id ) {
-        //     // console.log("hero aang!");
-        //     // console.log("this:", this);
-        //     $(this).attr("data-ap", characterAttributes.aang.ap);
-        //     // console.log("data-ap test:", $(this).attr("data-ap") )
-        //     // console.log("hp:", characterAttributes.aang.hp );
-        //     // console.log("ap:", characterAttributes.aang.ap);
-        //     // console.log("cap:", characterAttributes.aang.cap);
-        //     console.log ( "hero", $(".hero").attr("id"), "ap", $(this).attr("data-ap") );
-
-        // } else if ( $(this).attr("id") === characterAttributes.zhao.id ) {
-        //     // console.log("hero zhao!");
-        //     $(this).attr("data-ap", characterAttributes.zhao.ap);
-        //     // console.log("data-ap test:", $(this).attr("data-ap") )
-
-        // } else if ( $(this).attr("id") === characterAttributes.azula.id ) {
-        //     // console.log("hero azula!");
-        //     $(this).attr("data-ap", characterAttributes.azula.ap);
-        //     // console.log("data-ap test:", $(this).attr("data-ap") )
-
-        // } else if ( $(this).attr("id") === characterAttributes.ozai.id ) {
-        //     // console.log("hero ozai!");
-        //     $(this).attr("data-ap", characterAttributes.ozai.ap);
-        //     // console.log("data-ap test:", $(this).attr("data-ap") )
-        // }
-
+       
         // for loop using function attributesIndex()
         for (let i = 0; i < 20; i++) {
             // check if the id of the selected(clicked) .hero (this) matches the id value in characterAttributes object
@@ -231,18 +211,8 @@ $(".pick-character").on("click", ".character", function () {
             }
         }
 
-
     // END OF: $(".hero").attr("id", function() {
     });
-
-    // // TEST: select id aang, create data-ap attribute and set it equal to characterAttributes.aang.ap
-    // $("#aang").attr("data-ap", characterAttributes.aang.ap);
-    // console.log("ap after hero click:",  $("#aang").attr("data-ap") );
-
-    // // TEST: $(this).prop("classList");
-    // var numberOfClasses = $(this).prop("classList");
-    // console.log("this element's class:", $(this).attr("class") );
-    // console.log(numberOfClasses);
 
     // change .hero image to gif
     for (let i = 0; i < 20; i++) {
@@ -253,8 +223,8 @@ $(".pick-character").on("click", ".character", function () {
     }
     $(dotImageHero).attr("src", imageSourceHero);
 
-
-
+    // change hero background color to red
+    $(".hero").css("background-color", "green");
 
 // END OF: $(".pick-character").on("click", ".character", function () {
 });
@@ -276,11 +246,10 @@ $(".enemies").on("click", ".character", function (){
     $(this).appendTo(".defender");
     $(".enemy").removeClass("character");
 
-
     //attaches corresponding cap to selected .villain
     $(".villain").attr("id", function() {
         //for loop instead of if statement now possible thanks to function attributesIndex();
-        // cycles through all 16 attributes (0-15) in characterAttributes object
+        // cycles through all 20 attributes (0-19) in characterAttributes object
         for (let i = 0; i < 20; i++) {
             // check if the id of the selected(clicked) .villain(this) matches the id value in characterAttributes object...
             if ( $(this).attr("id") === attributesIndex(i) ) {
@@ -302,23 +271,11 @@ $(".enemies").on("click", ".character", function (){
     }
     $(dotImageVillain).attr("src", imageSourceVillain);
 
+    // change villain background color to red
+    $(".villain").css("background-color", "red");
+
 // END OF: $(".enemies").on("click", ".character", function (){
 });
-
-// // TEST: removing villain from div.defender
-// $(".defender").on("click", ".villain", function() {
-//     $(this).remove();
-// END OF: $(".defender").on("click", ".villain", function() {
-// });
-
-// TEST ONLY: after 1st villain defeat, adding 2nd villain from div.enemies;
-// doesn't work as intended, will allow multiple enemies in defender, TEST ONLY;
-// $(".enemies").on("click", ".enemy", function(){
-//     $(this).addClass("villain");
-//     $(this).appendTo(".defender");
-//     $(this).removeClass("enemy");
-// END OF: $(".enemies").on("click", ".enemy", function(){
-// });
 
 
 
@@ -346,7 +303,7 @@ $(".enemies").on("click", ".enemy", function(){
         //attaches corresponding cap to selected .villain
         $(".villain").attr("id", function() {
             //for loop instead of "if" now possible thanks to function attributesIndex();
-            // cycles through all 16 attributes (0-15) in characterAttributes object
+            // cycles through all 20 attributes (0-19) in characterAttributes object
             for (let i = 0; i < 20; i++) {
                 // check if the id of the selected(clicked) .villain (this) matches the id value in characterAttributes object
                 if ( $(this).attr("id") === attributesIndex(i) ) {
@@ -370,25 +327,21 @@ $(".enemies").on("click", ".enemy", function(){
     }
     $(dotImageVillain).attr("src", imageSourceVillain);
 
+    // change villain background color to red
+    $(".villain").css("background-color", "red");
+
+    //bonus: if aang was selected as hero and facing ozai change background image
+    if ( $(".hero").attr("id") === attributesIndex(0) && $(".villain").attr("id") === attributesIndex(15) ) {
+        $(".bodyGif").css("background-image", "url(assets/images/beacons-zdzislaw_beksinski.jpg)");
+    }
+    // bonus patch: if aang was selected as hero and faced ozai, but then faced another character, change background image to default
+    if ( $(".hero").attr("id") === attributesIndex(0) && $(".villain").attr("id") !== attributesIndex(15) ) {
+        $(".bodyGif").css("background-image", "url(assets/images/avatar-map.png)");
+    }
+
 // END OF: $(".enemies").on("click", ".enemy", function(){
 });
 
-
-
-// attack button click with no enemy present
-// if .villain does not exist...
-// if ( !$(".villain")[0] && $(".hero")[0]) {
-//     // ...when user clicks on .attack-button, display "no enemy present..."
-//     $(".attack-button").on("click", function(){
-
-//         // console.log("test: villain defeated");
-//         $(".gameInfo-line1").text( "Select hero and enemy from above. " );
-    
-//     // END OF: $(".attack-button").on("click", function(){
-//     });
-
-// //END OF: if ( !$(".villain")[0] ) {
-// }
 
 
 // ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON -  ATTACK BUTTON - ATTACK BUTTON - ATTACK BUTTON - 
@@ -401,7 +354,7 @@ $(".attack-button").on("click", function() {
         console.log("select hero and villain");
         $(".gameInfo-line1").text( "Select hero and enemy. " );
     
-    // of hero has been chosen, but not villain...
+    // if hero has been chosen, but not villain...
     } else if ( $(".hero")[0] && !$(".villain")[0] ) {
         console.log("select villain")
         $(".gameInfo-line1").text( "Select enemy. " );
@@ -409,7 +362,6 @@ $(".attack-button").on("click", function() {
     }
 
     console.log("---street fighter II: fight!---");
-
 
     console.log("attack #:", counters.attack);
     
@@ -420,10 +372,6 @@ $(".attack-button").on("click", function() {
     var heroAP = parseInt( $(".hero").attr("data-ap") );
     console.log("heroHP:", heroHP);
     console.log("heroAP:", heroAP);
-
-    // static capture of base AP for hero
-    // var heroBaseAP = attributesIndex(3);
-    // console.log("for loop/heroBaseAP test:", heroBaseAP);
     
     // dynamic capture of base AP for hero
     // for loop finds base AP for hero
@@ -457,7 +405,8 @@ $(".attack-button").on("click", function() {
     dotVillainHP = "." + $(".villain").attr("id") + "-hp";
     poundVillain = "#" + $(".villain").attr("id");
     $(dotVillainHP).text( $(poundVillain).attr("data-hp") );  
-
+    
+    // END OF: patch, else {
     }
 
     // // villain attack
@@ -482,7 +431,8 @@ $(".attack-button").on("click", function() {
         //villain attack
         $(".gameInfo-line2").text( davidAllenCoeVillain() + " counter attacked " + davidAllenCoeHero() + " for " + $(".villain").attr("data-cap") + " damage."  );
 
-
+        // if hero has been defeated, call davidAllenCoeHero(), get correct name of hero and push text;
+        // remove hero and call resetButton() - turn off .attack-button and create reset button
         if ( $(".hero").attr("data-hp") <= 0 ) {
             $(".gameInfo-line1").text( davidAllenCoeHero() + " has been defeated!" );
             $(".gameInfo-line2").text("You lose. Game over.");
@@ -492,7 +442,6 @@ $(".attack-button").on("click", function() {
             resetButton();
 
         }
-
 
     // END OF: if ( $(".villain-1").attr("data-hp") > 0 ) {
     // <=0 villain defeated
@@ -520,21 +469,139 @@ $(".attack-button").on("click", function() {
             
             resetButton();
 
+
         // END OF: else if ( !$(".enemy").attr("class") && $(".hero").attr("class" )) {
         }
 
-
-
-    // // CONSOLE LOGS & COMMENTS (TESTS) FROM HERE TO END...
-    // // CONSOLE LOGS & COMMENTS (TESTS) FROM HERE TO END...
-    // // CONSOLE LOGS & COMMENTS (TESTS) FROM HERE TO END...
-
-
-
     // END OF: else if ( $(".villain").attr("data-hp") <= 0 ) {
     }
-    
 
+    console.log("---after attack--");
+    console.log( "heroHP:", $(".hero").attr("data-hp") );
+    console.log( "heroAP:", $(".hero").attr("data-ap") );
+    console.log( "villainHP:", $(".villain").attr("data-hp") );
+    console.log( "villainCAP:", $(".villain").attr("data-cap") );
+    counters.attack++;
+
+    //bonus: if aang was selected as hero and ozai as villain
+    if ( $(".hero").attr("id") === attributesIndex(0) && $(".villain").attr("id") === attributesIndex(15) ) {
+        if ($(".villain").attr("data-hp") <= 172 && $(".villain").attr("data-hp") >= 157) {
+            $(".bodyGif").css("background-image", "url(assets/images/aang-vs-ozai-5.gif)");
+
+        } else if ($(".villain").attr("data-hp") <= 156 && $(".villain").attr("data-hp") >= 133) {
+            $(".bodyGif").css("background-image", "url(assets/images/aang-vs-ozai-1.gif)");
+
+    
+        } else if ($(".villain").attr("data-hp") <= 132 && $(".villain").attr("data-hp") >= 101) {
+            $(".bodyGif").css("background-image", "url(assets/images/aang-vs-ozai-2.gif)");
+
+    
+        } else if ($(".villain").attr("data-hp") <= 100 && $(".villain").attr("data-hp") >= 61) {
+            $(".bodyGif").css("background-image", "url(assets/images/aang-vs-ozai-3.gif)");
+
+    
+        } else if ($(".villain").attr("data-hp") <= 60 && $(".villain").attr("data-hp") >= 1) {
+            $(".bodyGif").css("background-image", "url(assets/images/aang-vs-ozai-4.gif)");
+
+    
+        }
+
+            
+    }
+
+// END OF: $(".attack-button").on("click", function() {
+});
+
+
+
+
+
+
+// CODE GRAVEYARD & TEST BUTTON - CODE GRAVEYARD & TEST BUTTON - CODE GRAVEYARD & TEST BUTTON - CODE GRAVEYARD & TEST BUTTON
+// CODE GRAVEYARD & TEST BUTTON - CODE GRAVEYARD & TEST BUTTON - CODE GRAVEYARD & TEST BUTTON - CODE GRAVEYARD & TEST BUTTON
+// CODE GRAVEYARD & TEST BUTTON - CODE GRAVEYARD & TEST BUTTON - CODE GRAVEYARD & TEST BUTTON - CODE GRAVEYARD & TEST BUTTON
+
+// between attach HP and select hero 
+    // // TEST: ap before and after hero click, after on line 240
+    // console.log("ap before hero click:",  $("#aang").attr("data-ap") );
+
+ // right below "$(".hero").attr("id", function() {" inside select hero
+        // if/else if loop to figure out which character was clicked to attach corresponding ap (ap not cap since this is hero)
+        // if ( $(this).attr("id") === characterAttributes.aang.id ) {
+        //     // console.log("hero aang!");
+        //     // console.log("this:", this);
+        //     $(this).attr("data-ap", characterAttributes.aang.ap);
+        //     // console.log("data-ap test:", $(this).attr("data-ap") )
+        //     // console.log("hp:", characterAttributes.aang.hp );
+        //     // console.log("ap:", characterAttributes.aang.ap);
+        //     // console.log("cap:", characterAttributes.aang.cap);
+        //     console.log ( "hero", $(".hero").attr("id"), "ap", $(this).attr("data-ap") );
+
+        // } else if ( $(this).attr("id") === characterAttributes.zhao.id ) {
+        //     // console.log("hero zhao!");
+        //     $(this).attr("data-ap", characterAttributes.zhao.ap);
+        //     // console.log("data-ap test:", $(this).attr("data-ap") )
+
+        // } else if ( $(this).attr("id") === characterAttributes.azula.id ) {
+        //     // console.log("hero azula!");
+        //     $(this).attr("data-ap", characterAttributes.azula.ap);
+        //     // console.log("data-ap test:", $(this).attr("data-ap") )
+
+        // } else if ( $(this).attr("id") === characterAttributes.ozai.id ) {
+        //     // console.log("hero ozai!");
+        //     $(this).attr("data-ap", characterAttributes.ozai.ap);
+        //     // console.log("data-ap test:", $(this).attr("data-ap") )
+        // }
+
+ // before/above " for (let i = 0; i < 20; i++) { ", end of select hero
+    // // TEST: select id aang, create data-ap attribute and set it equal to characterAttributes.aang.ap
+    // $("#aang").attr("data-ap", characterAttributes.aang.ap);
+    // console.log("ap after hero click:",  $("#aang").attr("data-ap") );
+
+    // // TEST: $(this).prop("classList");
+    // var numberOfClasses = $(this).prop("classList");
+    // console.log("this element's class:", $(this).attr("class") );
+    // console.log(numberOfClasses);
+
+// between select villain and select next villain
+    // // TEST: removing villain from div.defender
+    // $(".defender").on("click", ".villain", function() {
+    //     $(this).remove();
+    // END OF: $(".defender").on("click", ".villain", function() {
+    // });
+
+    // TEST ONLY: after 1st villain defeat, adding 2nd villain from div.enemies;
+    // doesn't work as intended, will allow multiple enemies in defender, TEST ONLY;
+    // $(".enemies").on("click", ".enemy", function(){
+    //     $(this).addClass("villain");
+    //     $(this).appendTo(".defender");
+    //     $(this).removeClass("enemy");
+    // END OF: $(".enemies").on("click", ".enemy", function(){
+    // });
+
+// between select next villain and attack button
+    // attack button click with no enemy present
+    // moved to within .attack-button
+    // if .villain does not exist...
+    // if ( !$(".villain")[0] && $(".hero")[0]) {
+    //     // ...when user clicks on .attack-button, display "no enemy present..."
+    //     $(".attack-button").on("click", function(){
+
+    //         // console.log("test: villain defeated");
+    //         $(".gameInfo-line1").text( "Select hero and enemy from above. " );
+        
+    //     // END OF: $(".attack-button").on("click", function(){
+    //     });
+
+    // //END OF: if ( !$(".villain")[0] ) {
+    // }
+
+// inside attack button, before dynamic capture of base AP
+    // static capture of base AP for hero
+    // var heroBaseAP = attributesIndex(3);
+    // console.log("for loop/heroBaseAP test:", heroBaseAP);
+
+    // end of attack button, before console logs
     //  TEST: .gameInfo
     // counters.gameInfo++;
     // // .gameInfo - .gameInfo - .gameInfo - .gameInfo - .gameInfo - .gameInfo - .gameInfo - .gameInfo - .gameInfo - .gameInfo -
@@ -542,10 +609,6 @@ $(".attack-button").on("click", function() {
     //     // console.log("test: villain defeated");
     //     $(".gameInfo-line1").text( "No enemy present. Select new enemy from above. " );
     // } 
-
-
-
-
 
     // TEST: .gameInfo
     // $(".gameInfo-line1").text( "test" );
@@ -555,10 +618,6 @@ $(".attack-button").on("click", function() {
     // $(".gameInfo-line1").text( $(".hero").attr("id") + " attacked " + $(".villain").attr("id") + " for " + ($(".hero").attr("data-ap")-heroBaseAP) + " damage."  );
     // // villain attack
     // $(".gameInfo-line2").text( $(".villain").attr("id") + " counter attacked " + $(".hero").attr("id") + " for " + $(".villain").attr("data-cap") + " damage."  );
-
-    
-
-
 
     // INITIAL ATTACK SEQUENCE STRUCTURE
     // attack math
@@ -599,40 +658,13 @@ $(".attack-button").on("click", function() {
     //     // $(this).remove();
     //     $(".villain").remove();
     // }
-        
-    console.log("---after attack--");
-    console.log( "heroHP:", $(".hero").attr("data-hp") );
-    console.log( "heroAP:", $(".hero").attr("data-ap") );
-    console.log( "villainHP:", $(".villain").attr("data-hp") );
-    console.log( "villainCAP:", $(".villain").attr("data-cap") );
-    counters.attack++;
 
-    if ( $(".hero").attr("id") === attributesIndex(0) && $(".villain").attr("id") === attributesIndex(15) ) {
-        $(".bodyGif").css("background-image", "url(assets/images/aang-vs-ozai.gif)");
-    }
-
-
-
-// END OF: $(".attack-button").on("click", function() {
-});
-
-
-
-
-
-
-
-// // INITIAL RESET BUTTON 
-// always present, changed to be dynamically created after defeat
-// $(".restart-button").click(function() {
-//     location.reload();
-// });
-
-
-
-
-
-
+// between attack button and test button 
+    // // INITIAL RESET BUTTON 
+    // always present, changed to be dynamically created after defeat
+    // $(".restart-button").click(function() {
+    //     location.reload();
+    // });
 
 
 
@@ -712,7 +744,7 @@ $(".test-button").on("click", function (){
     // $("#ozai").attr("data-hp", characterAttributes.ozai.hp);
     // $(".ozai-hp").text( $("#ozai").attr("data-hp") );
 
-    // // TEST: for in loop using characterAttributes object, ie iteration over nested object
+    // // TEST: for-in loop using characterAttributes object, ie iteration over nested object
     // // TEST 1
     // // using characterAttributes object
     // function forInTest () {
@@ -1024,16 +1056,10 @@ $(".test-button").on("click", function (){
 
     // }
 
-
-
+    // 
 
 // END OF: $(".test-button").on("click", function (){
 });
-
-
-
-
-
 
 // END OF: $(document).ready(function() {
 });

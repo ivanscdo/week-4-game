@@ -3,12 +3,10 @@ body {
     color: white;
 }
 
-img {
-    height: auto;
-    width: 100%;
-}
-
+.img-aang,
+.img-zhao,
+.img-azula,
 .img-ozai {
-    height: 70%;
-    width: 98%;
+    height: auto;
+    width: 70%;
 }
